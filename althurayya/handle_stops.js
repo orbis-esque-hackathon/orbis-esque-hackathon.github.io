@@ -1,9 +1,9 @@
 /**
  * Created by rostam on 29.10.16.
  */
-numStops = 0;
-maxStops = 10;
-idCounter = 0;
+var numStops = 0;
+var maxStops = 10;
+var idCounter = 0;
 function addStop(btnId) {
     if (numStops < maxStops) {
         // Increment counter for number of stops
@@ -125,3 +125,17 @@ function keepLastStops(){
         }
     });
 }
+//
+// function keepLastNetSite(){
+//     $('Input[id^="netInput"]').each(function() {
+//         var netInputValue = $(this).val();
+//         if (netInputValue.indexOf(",") != -1) {
+//             var sel_splitted = netInputValue.split(",");
+//             // The last part of the selected text should be URI in data //TODO
+//             var key = (sel_splitted[sel_splitted.length-1]).trim();
+//             customMarkerStyle(markers[key], "red", 0.8);
+//             customLabelStyle(markers[key], "red", "24px", true);
+//             markers[key].bringToFront();
+//         }
+//     });
+// }
