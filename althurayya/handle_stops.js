@@ -74,42 +74,6 @@ function removeStop(btnId) {
     //}
 };
 
-// REMOVE ALL THE ELEMENTS IN THE CONTAINER.
-//$('#btnRemoveAll').click(function() {
-//    $(container)
-//        .empty()
-//        .remove();
-//
-//    $('#btSubmit').remove();
-//    iCnt = 0;
-//
-//    $('#btAdd')
-//        .removeAttr('disabled')
-//        .attr('class', 'bt');
-//});
-
-
-// PICK THE VALUES FROM EACH TEXTBOX WHEN "SUBMIT" BUTTON IS CLICKED.
-//var divValue, values = '';
-//
-//function GetTextValue() {
-//
-//    $(divValue)
-//        .empty()
-//        .remove();
-//
-//    values = '';
-//
-//    $('.input').each(function() {
-//        divValue = $(document.createElement('div')).css({
-//            padding:'5px', width:'200px'
-//        });
-//        values += this.value + '<br />'
-//    });
-//
-//    $(divValue).append('<p><b>Your selected values</b></p>' + values);
-//    $('body').append(divValue);
-//}
 //TODO: duplications with autocomplete function (the current input value get colored twice!)
 function keepLastStops(){
     $('Input[id^="stopInput"]').each(function() {
@@ -125,17 +89,3 @@ function keepLastStops(){
         }
     });
 }
-//
-// function keepLastNetSite(){
-//     $('Input[id^="netInput"]').each(function() {
-//         var netInputValue = $(this).val();
-//         if (netInputValue.indexOf(",") != -1) {
-//             var sel_splitted = netInputValue.split(",");
-//             // The last part of the selected text should be URI in data //TODO
-//             var key = (sel_splitted[sel_splitted.length-1]).trim();
-//             customMarkerStyle(markers[key], "red", 0.8);
-//             customLabelStyle(markers[key], "red", "24px", true);
-//             markers[key].bringToFront();
-//         }
-//     });
-// }

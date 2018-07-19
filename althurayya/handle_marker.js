@@ -2,6 +2,9 @@
  * Created by rostam on 25.09.16.
  */
 var marker_properties = {};
+// Variable holding the previous clicked marker
+var prevClickedMarker;
+
 function create_marker(feature,latlng) {
     var marker = L.circleMarker(latlng,{
         //fillColor: setColor(feature.properties.cornuData.region_code, [13, 23]),
@@ -71,8 +74,6 @@ function create_marker(feature,latlng) {
     //marker.setLabelNoHide(false);
     return marker;
 }
-// Variable holding the previous clicked marker
-var prevClickedMarker;
 
 // Show/Hide the cornu detail by clicking on "Technical Information"
 $("#techInfo").click(

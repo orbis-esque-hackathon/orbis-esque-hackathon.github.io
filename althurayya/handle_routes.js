@@ -141,9 +141,15 @@ function handle_routes(feature,layer) {
     }
     //console.log(JSON.stringify(route_features))
     //init_graph(route_features);
-    //graph_dijks = createMatrix(route_features);
+    //graph_dijks = create_dijk_graph(route_features);
 }
 
+
+function resetPaths() {
+    all_route_layers.forEach(function(lay) {
+        customLineStyle(lay, lay.options.default_color, 2, 1);
+    });
+}
 /*
  * Set the routes style
  */
@@ -156,9 +162,44 @@ function customLineStyle(layer, color, width, opacity) {
     })
 };
 
-function getRouteStyle (layer) {
-    return layer.options;
+function displayPathControl(pathData,color) {
+    var  path_distances= 0;
+    //if (pathData != undefined) { //TODO:
+    for (var i = 0; i < pathData.length - 1; i++) {
+        var lay = index_routes_layers[pathData[i] + "," + pathData[i + 1]];
+        if (lay == undefined) {
+            lay = index_routes_layers[pathData[i + 1] + "," + pathData[i]];
+        }
+        if (lay != undefined) {
+            customLineStyle(lay, color, 3, 1);
+            path_distances += lay.feature.properties.Meter;
+        }
+    }
+    //all_route_layers.forEach(function (lay) {
+    //    if (pathData.indexOf(lay.feature.properties.sToponym) !== -1
+    //        && pathData.indexOf(lay.feature.properties.eToponym) !== -1) {
+    //        console.log("test " + JSON.stringify(lay.feature.properties.Meter));
+    //
+    //    }
+    //});
+    Object.keys(markers).forEach(function (keys) {
+        if (pathData.indexOf(marker_properties[keys].cornu_URI) !== -1)
+            customMarkerStyle(markers[keys], color, 0.8);
+    });
+    //}
+    return path_distances;
+
 }
+
+function repaintPaths() {
+    all_route_layers.forEach(function(lay) {
+        customLineStyle(lay, lay.options.default_color, 1, 0.2);
+    });
+}
+
+// function getRouteStyle (layer) {
+//     return layer.options;
+// }
 
 
 

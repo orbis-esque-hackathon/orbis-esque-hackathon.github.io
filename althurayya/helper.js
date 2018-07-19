@@ -1,34 +1,4 @@
 
-function createMatrix(postdata) {
-    edgeMap = {};
-    nodeHash = {};
-    for (x in postdata) {
-        var line = postdata[x].geometry.coordinates;
-        var sName = postdata[x].properties.sToponym;
-        var eName = postdata[x].properties.eToponym;
-        var lS = line[0];
-        var lE = line[line.length - 1];
-        var nA = [lS, lE];
-        var cost = d3.geo.length(postdata[x]) * 6371;
-        if (edgeMap[sName]) {
-            edgeMap[sName][eName] = cost;
-        }
-        else {
-            edgeMap[sName] = {};
-            edgeMap[sName][eName] = cost;
-        }
-        if (edgeMap[eName]) {
-            edgeMap[eName][sName] = cost;
-        }
-        else {
-            edgeMap[eName] = {};
-            edgeMap[eName][sName] = cost;
-        }
-    }
-
-    return new DijksGraph(edgeMap);
-}
-
 // Claculate distance. For results in meter, 'K' hsould be choosen as the unit
 function distance(lat1, lon1, lat2, lon2, unit) {
     var radlat1 = Math.PI * lat1 / 180;
@@ -46,62 +16,6 @@ function distance(lat1, lon1, lat2, lon2, unit) {
         dist = dist * 0.8684;
     }
     return dist;
-}
-
-function getRandomColor() {
-    var letters = '0123456789ABCDEF'.split('');
-    var color = '#';
-    for (var i = 0; i < 6; i++ ) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
-
-
-function getPosition(str, m, i) {
-    return str.split(m, i).join(m).length;
-}
-
-function repaintPaths() {
-    all_route_layers.forEach(function(lay) {
-        customLineStyle(lay, lay.options.default_color, 1, 0.2);
-    });
-}
-
-
-function resetPaths() {
-    all_route_layers.forEach(function(lay) {
-        customLineStyle(lay, lay.options.default_color, 2, 1);
-    });
-}
-
-function displayPathControl(pathData,color) {
-    var  path_distances= 0;
-    //if (pathData != undefined) { //TODO:
-        for (var i = 0; i < pathData.length - 1; i++) {
-            var lay = index_routes_layers[pathData[i] + "," + pathData[i + 1]];
-            if (lay == undefined) {
-                lay = index_routes_layers[pathData[i + 1] + "," + pathData[i]];
-            }
-            if (lay != undefined) {
-                customLineStyle(lay, color, 3, 1);
-                path_distances += lay.feature.properties.Meter;
-            }
-        }
-        //all_route_layers.forEach(function (lay) {
-        //    if (pathData.indexOf(lay.feature.properties.sToponym) !== -1
-        //        && pathData.indexOf(lay.feature.properties.eToponym) !== -1) {
-        //        console.log("test " + JSON.stringify(lay.feature.properties.Meter));
-        //
-        //    }
-        //});
-        Object.keys(markers).forEach(function (keys) {
-            if (pathData.indexOf(marker_properties[keys].cornu_URI) !== -1)
-                customMarkerStyle(markers[keys], color, 0.8);
-        });
-    //}
-    return path_distances;
-
 }
 
 //Calculate the direct distance from start to end
@@ -126,3 +40,36 @@ function repaintMap(){
     repaintMarkers();
     repaintPaths();
 }
+
+
+/*
+ Set a color for an object excluded from a list
+ */
+function setColor (code, toExclude) {
+    if (toExclude.indexOf(code) == -1)
+    //colorLookup[code];
+        return regions[code]['color']
+    else return "lightgray";
+}
+
+// function lengthInMeters(path) {
+//     var m = 0;
+//     path.forEach(function(p) {
+//         m += p.properties.Meter;
+//     })
+//     return m;
+// }
+//
+// function getRandomColor() {
+//     var letters = '0123456789ABCDEF'.split('');
+//     var color = '#';
+//     for (var i = 0; i < 6; i++ ) {
+//         color += letters[Math.floor(Math.random() * 16)];
+//     }
+//     return color;
+// }
+//
+//
+// function getPosition(str, m, i) {
+//     return str.split(m, i).join(m).length;
+// }

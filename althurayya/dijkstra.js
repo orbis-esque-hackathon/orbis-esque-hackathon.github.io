@@ -6,11 +6,11 @@ var DijksGraph = (function (undefined) {
 		    Object.prototype.hasOwnProperty.call(obj,key) && keys.push(key);
 		}
 		return keys;
-	}
+	};
 
 	var sorter = function (a, b) {
 		return parseFloat (a) - parseFloat (b);
-	}
+	};
 
 	var findPaths = function (map, start, end, infinity) {
 		infinity = infinity || Infinity;
@@ -24,7 +24,7 @@ var DijksGraph = (function (undefined) {
 			var key = "" + cost;
 			if (!open[key]) open[key] = [];
 			open[key].push(vertex);
-		}
+		};
 
 		costs[start] = 0;
 
@@ -76,7 +76,7 @@ var DijksGraph = (function (undefined) {
 
 		nodes.reverse();
 		return nodes;
-	}
+	};
 
 	var findShortestPath = function (map, nodes) {
 		var start = nodes.shift(),
@@ -102,7 +102,7 @@ var DijksGraph = (function (undefined) {
 
 			start = end;
 		}
-	}
+	};
 
 	var toArray = function (list, offset) {
 		try {
@@ -114,11 +114,11 @@ var DijksGraph = (function (undefined) {
 			}
 			return a;
 		}
-	}
+	};
 
 	var Graph = function (map) {
 		this.map = map;
-	}
+	};
 
 	Graph.prototype.findShortestPath = function (start, end) {
 		if (Object.prototype.toString.call(start) === '[object Array]') {
@@ -129,7 +129,7 @@ var DijksGraph = (function (undefined) {
 		} else {
 			return findShortestPath(this.map, toArray(arguments));
 		}
-	}
+	};
 
 	Graph.findShortestPath = function (map, start, end) {
 		if (Object.prototype.toString.call(start) === '[object Array]') {
