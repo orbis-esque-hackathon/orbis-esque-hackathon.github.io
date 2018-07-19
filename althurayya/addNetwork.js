@@ -1,6 +1,6 @@
-numNets = 0;
-maxNets = 2;
-netCounter = 0;
+var numNets = 0;
+var maxNets = 2;
+var netCounter = 0;
 function addNet(btnId) {
     if (numNets <= maxNets) {
         // Increment counter for number of sites

@@ -163,7 +163,7 @@ $.getJSON($('link[rel="regions"]').attr("href"), function( data ) {
                 onEachFeature: handle_routes
             });
             init_graph(route_features);
-            graph_dijks = createMatrix(route_features);
+            graph_dijks = create_dijk_graph(route_features);
             var rl = routeLayer.addLayer(routes);
             rl.addTo(map);
             rl.bringToBack();
@@ -187,15 +187,6 @@ $.getJSON($('link[rel="regions"]').attr("href"), function( data ) {
     });
 });
 
-/*
- Set a color for an object excluded from a list
- */
-function setColor (code, toExclude) {
-    if (toExclude.indexOf(code) == -1)
-        //colorLookup[code];
-        return regions[code]['color']
-    else return "lightgray";
-}
 /*
  * Click on map
  */

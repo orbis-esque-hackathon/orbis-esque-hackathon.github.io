@@ -1,9 +1,9 @@
 /**
  * Created by rostam on 29.10.16.
  */
-numStops = 0;
-maxStops = 10;
-idCounter = 0;
+var numStops = 0;
+var maxStops = 10;
+var idCounter = 0;
 function addStop(btnId) {
     if (numStops < maxStops) {
         // Increment counter for number of stops
@@ -74,42 +74,6 @@ function removeStop(btnId) {
     //}
 };
 
-// REMOVE ALL THE ELEMENTS IN THE CONTAINER.
-//$('#btnRemoveAll').click(function() {
-//    $(container)
-//        .empty()
-//        .remove();
-//
-//    $('#btSubmit').remove();
-//    iCnt = 0;
-//
-//    $('#btAdd')
-//        .removeAttr('disabled')
-//        .attr('class', 'bt');
-//});
-
-
-// PICK THE VALUES FROM EACH TEXTBOX WHEN "SUBMIT" BUTTON IS CLICKED.
-//var divValue, values = '';
-//
-//function GetTextValue() {
-//
-//    $(divValue)
-//        .empty()
-//        .remove();
-//
-//    values = '';
-//
-//    $('.input').each(function() {
-//        divValue = $(document.createElement('div')).css({
-//            padding:'5px', width:'200px'
-//        });
-//        values += this.value + '<br />'
-//    });
-//
-//    $(divValue).append('<p><b>Your selected values</b></p>' + values);
-//    $('body').append(divValue);
-//}
 //TODO: duplications with autocomplete function (the current input value get colored twice!)
 function keepLastStops(){
     $('Input[id^="stopInput"]').each(function() {

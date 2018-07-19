@@ -2,6 +2,9 @@
  * Created by rostam on 25.09.16.
  */
 var marker_properties = {};
+// Variable holding the previous clicked marker
+var prevClickedMarker;
+
 function create_marker(feature,latlng) {
     var marker = L.circleMarker(latlng,{
         //fillColor: setColor(feature.properties.cornuData.region_code, [13, 23]),
@@ -71,8 +74,6 @@ function create_marker(feature,latlng) {
     //marker.setLabelNoHide(false);
     return marker;
 }
-// Variable holding the previous clicked marker
-var prevClickedMarker;
 
 // Show/Hide the cornu detail by clicking on "Technical Information"
 $("#techInfo").click(
@@ -258,4 +259,30 @@ function customLabelStyle (marker, color, font, status) {
         marker.label._container.style.fontSize = font;
     }
     marker.setLabelNoHide(status)
+}
+
+
+function repaintMarkers() {
+    Object.keys(markers).forEach(function(keys) {
+        // new structure of places.geojson file
+        //customMarkerStyle(markers[keys], colorLookup[marker_properties[keys].region], 0.2);
+        customMarkerStyle(markers[keys], regions[marker_properties[keys].region]['color'], 0.2);
+        markers[keys].bringToFront();
+    });
+}
+
+
+function resetMarkers() {
+    Object.keys(markers).forEach(function(keys) {
+        // new structure of places.geojson file
+        //customMarkerStyle(markers[keys], colorLookup[marker_properties[keys].region], 1);
+        customMarkerStyle(markers[keys], regions[marker_properties[keys].region]['color'], 1);
+        marker = markers[keys];
+        if(marker.label._container != undefined)
+            if(marker_properties[keys].type == "metropoles")
+                customLabelStyle(markers[keys], "black", "20px", true);
+            else
+                customLabelStyle(markers[keys], "black", "20px", false);
+        markers[keys].bringToFront();
+    })
 }
