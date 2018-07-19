@@ -58,22 +58,22 @@ function PriorityQueue () {
   }
 }
 
-function findPaths(s, t, withinADay) {
-  var shortest = shortestPath(s, t, withinADay);
-  /* second: get rid of longest edge weight */ 
-  var max = longestEdge(shortest); 
-  max.weight = INFINITY; 
-  //var secondShortest = shortestPath(s, t); 
-  /* get rid of all edge weights over x weight*/
-  return shortest; 
-}
+// function findPaths(s, t, withinADay) {
+//   var shortest = shortestPath(s, t, withinADay);
+//   /* second: get rid of longest edge weight */
+//   var max = longestEdge(shortest);
+//   max.weight = INFINITY;
+//   //var secondShortest = shortestPath(s, t);
+//   /* get rid of all edge weights over x weight*/
+//   return shortest;
+// }
 
-function secondShortest(s, t, path) {
-  var max = longestEdge(path); 
-  max.weight = 1/0; 
-  var second = shortestPath(s, t, false); // not within a day.
-  return second;
-}
+// function secondShortest(s, t, path) {
+//   var max = longestEdge(path);
+//   max.weight = 1/0;
+//   var second = shortestPath(s, t, false); // not within a day.
+//   return second;
+// }
 
 function longestEdge(path) {
   var max = 0; 
@@ -200,10 +200,10 @@ function placeDistanceInZone(meters, zones) {
   }
 }
 
-function lengthInMeters(path) {
-  var m = 0;
-  path.forEach(function(p) {
-    m += p.properties.Meter;
-  })
-  return m;
-}
+// function lengthInMeters(path) {
+//   var m = 0;
+//   path.forEach(function(p) {
+//     m += p.properties.Meter;
+//   })
+//   return m;
+// }

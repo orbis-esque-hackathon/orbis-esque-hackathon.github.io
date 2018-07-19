@@ -68,34 +68,11 @@ function repaintPaths() {
     });
 }
 
-function repaintMarkers() {
-    Object.keys(markers).forEach(function(keys) {
-        // new structure of places.geojson file
-        //customMarkerStyle(markers[keys], colorLookup[marker_properties[keys].region], 0.2);
-        customMarkerStyle(markers[keys], regions[marker_properties[keys].region]['color'], 0.2);
-        markers[keys].bringToFront();
-    });
-}
 
 function resetPaths() {
     all_route_layers.forEach(function(lay) {
         customLineStyle(lay, lay.options.default_color, 2, 1);
     });
-}
-
-function resetMarkers() {
-    Object.keys(markers).forEach(function(keys) {
-        // new structure of places.geojson file
-        //customMarkerStyle(markers[keys], colorLookup[marker_properties[keys].region], 1);
-        customMarkerStyle(markers[keys], regions[marker_properties[keys].region]['color'], 1);
-        marker = markers[keys];
-        if(marker.label._container != undefined)
-            if(marker_properties[keys].type == "metropoles")
-               customLabelStyle(markers[keys], "black", "20px", true);
-            else
-                customLabelStyle(markers[keys], "black", "20px", false);
-        markers[keys].bringToFront();
-    })
 }
 
 function displayPathControl(pathData,color) {
