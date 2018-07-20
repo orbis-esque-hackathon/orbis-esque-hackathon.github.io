@@ -46,7 +46,7 @@ def generateGeoJsonData():
         # routes values
         rFile = settings["data"][d]["routesFile"]
         rValues = settings["data"][d]["routesProperties"]
-        generate_geojson_routes(rValues, rFile+".csv", rFile+"_TEST.geojson")
+        generate_geojson_routes(rValues, rFile+".csv", rFile+".geojson")
 
         # settlements values
 
