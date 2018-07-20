@@ -75,3 +75,87 @@ var DAY = 39702;
 var WITHIN_A_DAY = DAY * 3;
 //var MULTIPLIER = 3;
 var NUM_ZONES = 5;
+
+/* Configuration settings auto-generated from YAML settings file,
+   used by James Baillie's dynamic route weight calculations
+   (see graph.js)
+
+   @@TODO:
+   Rather than putting this in the code here, in the longer term it should be picked
+   up dynamically by the Al Thurayya application...  this could be by a separate
+   script include in the index.html file, or by regenerating the data as JSON and 
+   reading it into memory inm (say) index.js.
+ */
+
+weweights = [
+    ["Meter", "Num", 1, -1, 1],
+    ["summer", "Typ", 1, "summer", 1],
+    ["winter", "Typ", 1, "winter", 1],
+    ["eToponym_type", "Typ", 1, "eToponym_type", 1],
+    ["spring", "Typ", 1, "spring", 1],
+    ["terrain", "Typ", 1, "terrain", 1],
+    ["autumn", "Typ", 1, "autumn", 1],
+    ["safety", "Typ", 1, "safety", 1],
+    ["sToponym_type", "Typ", 1, "sToponym_type", 1]
+    ]
+
+typetranslator =
+    { "summer":
+        [ ["passable", 1],
+          ["impassable", 1000]
+        ]
+    , "winter":
+        [ ["passable", 1],
+          ["impassable", 1000]
+        ]
+    , "eToponym_type":
+        [ ["capitals", 3],
+          ["waystations", 1],
+          ["waters", 1],
+          ["villages", 1],
+          ["sites", 1],
+          ["quarters", 1],
+          ["regions", 1],
+          ["mont", 1],
+          ["xroads", 1],
+          ["metropoles", 4],
+          ["towns", 2]
+        ]
+    , "spring":
+        [ ["passable", 1],
+          ["impassable", 1000]
+        ]
+    , "terrain":
+        [ ["mountain", 1.25],
+          ["river", 0.75],
+          ["desert", 2],
+          ["normal", 1]
+        ]
+    , "autumn":
+        [ ["passable", 1],
+          ["impassable", 1000]
+        ]
+    , "safety":
+        [ ["dangerous", 2],
+          ["safe", 0.75],
+          ["normal", 1]
+        ]
+    , "sToponym_type":
+        [ ["capitals", 3],
+          ["waystations", 1],
+          ["waters", 1],
+          ["villages", 1],
+          ["sites", 1],
+          ["quarters", 1],
+          ["regions", 1],
+          ["mont", 1],
+          ["xroads", 1],
+          ["metropoles", 4],
+          ["towns", 2]
+        ]
+    }
+
+/* End */
+
+
+

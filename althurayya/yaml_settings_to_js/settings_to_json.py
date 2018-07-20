@@ -18,12 +18,12 @@ def json_dump(data, filename):
     return
 
 def convert_settings(settings):
-    del settings["data"]
+    modifiers = settings["modifiers"]
     setting_types    = [["Meter","Num",1,-1, 1]]
     setting_mappings = {}
-    for setting_name in settings:
+    for setting_name in modifiers:
         setting_types.append([setting_name, "Typ", 1, setting_name, 1])
-        m = settings[setting_name].items()
+        m = modifiers[setting_name].items()
         setting_mappings[setting_name] = m
         # ["Type","Typ",1,0],   // 1=apply weight, 0=index into translation list
     return (setting_types, setting_mappings)    

@@ -11,50 +11,51 @@ data:
     period_start: 1000
     period_end: 1300
 # categories
-terrain:
-  desert: 2
-  normal: 1
-  mountain: 1.25
-  river: 0.75
-safety:
-  dangerous: 2
-  safe: 0.75
-  normal: 1
-spring:
-  passable: 1
-  impassable: 1000
-summer:
-  passable: 1
-  impassable: 1000
-autumn:
-  passable: 1
-  impassable: 1000
-winter:
-  passable: 1
-  impassable: 1000
-sToponym_type:
-  metropoles: 4
-  capitals: 3
-  towns: 2
-  villages: 1
-  waystations: 1
-  sites: 1
-  xroads: 1
-  waters: 1
-  mont: 1
-  regions: 1
-  quarters: 1
-eToponym_type:
-  metropoles: 4
-  capitals: 3
-  towns: 2
-  villages: 1
-  waystations: 1
-  sites: 1
-  xroads: 1
-  waters: 1
-  mont: 1
-  regions: 1
-  quarters: 1
+modifiers:
+  terrain:
+    desert: 2
+    normal: 1
+    mountain: 1.25
+    river: 0.75
+  safety:
+    dangerous: 2
+    safe: 0.75
+    normal: 1
+  spring:
+    passable: 1
+    impassable: 1000
+  summer:
+    passable: 1
+    impassable: 1000
+  autumn:
+    passable: 1
+    impassable: 1000
+  winter:
+    passable: 1
+    impassable: 1000
+  sToponym_type:
+    metropoles: 4
+    capitals: 3
+    towns: 2
+    villages: 1
+    waystations: 1
+    sites: 1
+    xroads: 1
+    waters: 1
+    mont: 1
+    regions: 1
+    quarters: 1
+  eToponym_type:
+    metropoles: 4
+    capitals: 3
+    towns: 2
+    villages: 1
+    waystations: 1
+    sites: 1
+    xroads: 1
+    waters: 1
+    mont: 1
+    regions: 1
+    quarters: 1
 
 
