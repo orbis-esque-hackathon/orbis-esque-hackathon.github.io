@@ -73,6 +73,7 @@
         <li id="regions"><a href="#regionPane" role="tab" title="Regions"><i class="fa fa-globe"></i></a></li>
         <li id="search"><a href="#searchPane" role="tab" title="Search"><i class="fa fa-search"></i></a></li>
         <li id="routeSection"><a href="#routeSectionPane" role="tab" title="Routes"><i class="fa fa-object-ungroup"></i></a></li>
+        <li id="mapSlideButton"><a href="#mapsliders" role="tab" title="Weighting Factors"><i class="fa fa-balance-scale"></i></a></li>
         <li id="pathFinding"><a href="#pathFindingPane" role="tab" title="Path Finding"><i class="fa fa-arrow-right"></i></a></li>
         <li id="network"><a href="#networkPane" role="tab" title="Network"><i class="fa fa-bullseye "></i></a></li>
         <li id="assignCoord"><a href="#assignCoordPane" role="tab" title="Assign Coordinate"><i class="fa fa-map-pin"></i></a></li>
@@ -176,6 +177,61 @@
                 <br>
             </h3>
         </div>
+        <div class="sidebar-pane" id="mapsliders">
+            <h1 id="locTitle">Weighting Factors</h1>
+			
+			<form id=mapcheckboxes>
+			<script>
+			
+			
+			function onsubmitchecks(){
+			var elements = document.getElementById("mapcheckboxes").elements;
+
+			for (var weightboxes = 0, element; element = elements[weightboxes++];) {
+    		if (element.type == "checkbox" && element.checked == true){
+			checktruth = 1
+			}
+			else if  (element.type == "checkbox" && element.checked == false){
+			checktruth = 0
+			}
+			
+			for (mop in weweights){
+			if (weweights[mop][0] == element.value && checktruth == 1){
+			weweights[mop][2] = 1;
+        	console.log(element.value + "switched on");
+			}
+			else if (weweights[mop][0] == element.value && checktruth == 0){
+			weweights[mop][2] = 0;
+        	console.log(element.value + "switched off");
+			}
+			}
+			
+			}
+			
+            init_graph(route_features);
+            graph_dijks = createMatrix(route_features);
+			}
+			
+			
+			for (n in weweights){
+			document.write(weweights[n][0]);
+			var checkeder = ""
+			if (weweights[n][2] == 1){
+			checkeder = "checked"
+			}
+			document.write("<input type=checkbox value=" + weweights[n][0] + " " + checkeder + " />");
+			document.write("<br
+        <li id="mapSlideButton"><a href="#mapsliders" role="tab" title="Weighting Factors"><i class="fa fa-balance-scale"></i></a></li> />");
+			
+			}
+			document.write("<input type=button value='Change Graph' onclick=onsubmitchecks(); />");
+			
+			</script>
+			</form>
+			
+			
+        </div>
+        <li id="mapSlideButton"><a href="#mapsliders" role="tab" title="Weighting Factors"><i class="fa fa-balance-scale"></i></a></li>
         <div class="sidebar-pane" id="pathFindingPane">
             <h1>Pathfinding</h1>
             <div id="pathInputs" style="display: inline-block;">
