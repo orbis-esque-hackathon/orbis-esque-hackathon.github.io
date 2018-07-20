@@ -37,8 +37,7 @@ var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
     '<a href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_US" target="_blank">CC-BY-NC 3.0</a>' }),
     waterColor = L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg')//new L.StamenTileLayer("watercolor");
 
-var min_zoom = 5, // 5
-    max_zoom = 14;
+
 var prevZoom = min_zoom;
 
 var regs = {};
@@ -59,7 +58,7 @@ var auto_list = [];
 var latlngs = [];
 var graph_dijks;
 var prevPath = [];
-var init_lat = 30, init_lon = 42;
+
 var clicked_lat, clicked_lng;
 var regions;
 
@@ -163,7 +162,7 @@ $.getJSON($('link[rel="regions"]').attr("href"), function( data ) {
                 onEachFeature: handle_routes
             });
             init_graph(route_features);
-            graph_dijks = create_dijk_graph(route_features);
+            //graph_dijks = createMatrix(route_features);
             var rl = routeLayer.addLayer(routes);
             rl.addTo(map);
             rl.bringToBack();
@@ -187,6 +186,15 @@ $.getJSON($('link[rel="regions"]').attr("href"), function( data ) {
     });
 });
 
+/*
+ Set a color for an object excluded from a list
+ */
+function setColor (code, toExclude) {
+    if (toExclude.indexOf(code) == -1)
+        //colorLookup[code];
+        return regions[code]['color']
+    else return "lightgray";
+}
 /*
  * Click on map
  */
@@ -368,7 +376,7 @@ function findPath (start, end, pathType) {
     var startUri = start.substring(start.lastIndexOf(",") + 1).trim();
     var endUri = end.substring(end.lastIndexOf(",") + 1).trim();
     if (pathType == itin_opts[0]) {
-        shortPath = graph_dijks.findShortestPath(startUri, endUri);
+        shortPath = shortestPath(graph.getNode(startUri), graph.getNode(endUri), 'd');
         if (shortPath != null)
             return shortPath;
     }

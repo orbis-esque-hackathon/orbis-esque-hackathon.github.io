@@ -1,15 +1,16 @@
-/*
-There are two graphs created and use.
-One is created by us at the first stage targeting only Dijkstra algorithm and the other is
-build using “data_structure.js”. The former one is just an edge map. The later is developed
-further to consider more options in computing the shortest path such as optimal shortest path.
-We can consider removing the former one in the future!
 
- */
 function init_graph(routes) {
   var Graph = require('data-structures').Graph;
   graph = new Graph();
   var e, s, edge;
+  
+ 
+////////////////////// Test code
+
+		for(var klm in weweights){ 
+		console.log(weweights[klm])
+		}
+//////////////////////
 
   for (var i = 0; i < routes.length; i++) {
     e = routes[i].properties.eToponym;
@@ -26,7 +27,69 @@ function init_graph(routes) {
     edge._sid = s;
 
     edge._id = routes[i].properties.id;
-    edge.weight = routes[i].properties.Weight; /* GK - was Meter */
+	
+//		if (routes[i].weights.Moai > 0){
+//		routes[i].weights.Moai = 1/routes[i].weights.Moai;
+//		}
+//		else{
+//		routes[i].weights.Moai = 1
+//		}
+	
+	//Weight calculator
+        var weightsystem = routes[i].properties;
+		var arrayweights = [];
+		monoweigh = 1;
+		
+		for(var jqi in weightsystem){
+    	arrayweights.push([jqi, weightsystem [jqi]]);
+		}
+		
+		for(var j in arrayweights){
+		
+		var weight_type = 1
+		for(var klm in weweights){ 
+		if (arrayweights[j][0] == weweights[klm][0]){
+		weight_type = weweights[klm];
+		}
+		}
+		if (weight_type == 1){
+		console.log("ERROR!")
+		}
+		
+		if (weight_type[2] == 1){
+		//console.log(weweights[j][0]);
+		if (weight_type[1] == "Num"){
+		monoweigh = monoweigh * arrayweights[j][1];
+		}
+		
+		else if (weight_type[1] == "InvNum"){
+		//console.log("Hi there");
+		
+		calc = arrayweights[j][1];
+		if (calc > 0){
+		calc = 1/calc;
+		}
+		else{
+		calc = 1
+		}
+		//console.log(calc)
+		monoweigh = monoweigh * calc;
+		
+		}
+		
+		else if (weight_type[1] == "Typ"){
+		type_tr = typetranslator[weight_type[3]];
+		
+		for (thing in type_tr){
+		if (type_tr[thing][0] == arrayweights[j][1]){
+		monoweigh = monoweigh * type_tr[thing][1];
+		}
+		}
+		}
+		}
+		}
+	
+    edge.weight = monoweigh;
   }
   resetNodes(graph);
 
@@ -34,39 +97,8 @@ function init_graph(routes) {
 
 /* consider doing the routepoint thing in the definition of the graph. 
  so if you run across a routepoint, all edges connecting to it equal 
- weight of routepoint + current edge. maybe that will work? */
+ weight of routepoint + current edge. maybe that will work? */ 
 
-
-
-function create_dijk_graph(postdata) {
-    edgeMap = {};
-    nodeHash = {};
-    for (x in postdata) {
-        var line = postdata[x].geometry.coordinates;
-        var sName = postdata[x].properties.sToponym;
-        var eName = postdata[x].properties.eToponym;
-        var lS = line[0];
-        var lE = line[line.length - 1];
-        var nA = [lS, lE];
-        var cost = d3.geo.length(postdata[x]) * 6371;
-        if (edgeMap[sName]) {
-            edgeMap[sName][eName] = cost;
-        }
-        else {
-            edgeMap[sName] = {};
-            edgeMap[sName][eName] = cost;
-        }
-        if (edgeMap[eName]) {
-            edgeMap[eName][sName] = cost;
-        }
-        else {
-            edgeMap[eName] = {};
-            edgeMap[eName][sName] = cost;
-        }
-    }
-
-    return new DijksGraph(edgeMap);
-}
 
 function resetNodes(G) {
   graph.forEachNode( function(node) {
@@ -95,6 +127,36 @@ function PriorityQueue () {
     return !this._nodes.length;
   }
 }
+
+function findPaths(s, t, withinADay) {
+  var shortest = shortestPath(s, t, withinADay);
+  /* second: get rid of longest edge weight */ 
+  var max = longestEdge(shortest); 
+  max.weight = INFINITY; 
+  //var secondShortest = shortestPath(s, t); 
+  /* get rid of all edge weights over x weight*/
+  return shortest; 
+}
+
+function secondShortest(s, t, path) {
+  var max = longestEdge(path); 
+  max.weight = 1/0; 
+  var second = shortestPath(s, t, false); // not within a day.
+  return second;
+}
+
+function longestEdge(path) {
+  var max = 0; 
+  var edge; 
+  for(var i = 0; i < path.length - 1; i++) {
+    edge = graph.getEdge(path[i], path[i+1]); 
+    if (edge && edge.weight > max) {
+      max = edge; 
+    }
+  }
+  return max; 
+}
+
 
 /* THOUGHT for through center. What if instead of through 'centers' I say through 'X?' 
  * As in, I want to go TO fustat and pass through makka. What's the fastest way to do so? 
@@ -208,32 +270,10 @@ function placeDistanceInZone(meters, zones) {
   }
 }
 
-
-// function findPaths(s, t, withinADay) {
-//   var shortest = shortestPath(s, t, withinADay);
-//   /* second: get rid of longest edge weight */
-//   var max = longestEdge(shortest);
-//   max.weight = INFINITY;
-//   //var secondShortest = shortestPath(s, t);
-//   /* get rid of all edge weights over x weight*/
-//   return shortest;
-// }
-
-// function secondShortest(s, t, path) {
-//   var max = longestEdge(path);
-//   max.weight = 1/0;
-//   var second = shortestPath(s, t, false); // not within a day.
-//   return second;
-// }
-
-// function longestEdge(path) {
-//   var max = 0;
-//   var edge;
-//   for(var i = 0; i < path.length - 1; i++) {
-//     edge = graph.getEdge(path[i], path[i+1]);
-//     if (edge && edge.weight > max) {
-//       max = edge;
-//     }
-//   }
-//   return max;
-// }
+function lengthInMeters(path) {
+  var m = 0;
+  path.forEach(function(p) {
+    m += p.properties.Meter;
+  })
+  return m;
+}
