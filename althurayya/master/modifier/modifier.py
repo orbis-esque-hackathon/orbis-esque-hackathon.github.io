@@ -35,7 +35,7 @@ def addWeights(edgesFile):
             div2 = modVals[f['properties']['eToponym']]
             length = int(f['properties']['Meter'])
             weight = int(length / div1 / div2)
-            f['properties']['Weight'] = weight 
+            f['properties']['Meter'] = weight 
             
             #input(f)
             

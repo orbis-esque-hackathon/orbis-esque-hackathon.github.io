@@ -1,0 +1,59 @@
+# datafiles to be loaded as objects
+data:
+  obj1:
+    settlementFile: settlements1.csv
+    # mapping csv > geojson
+    settlementCoreValues:
+      URI: uri
+    routesFile: routes1.csv
+    # mapping csv > geojson
+    routeFeatures:
+      type: Feature
+      geometry:
+        type: LineString
+        coordinates: Coordinates
+      properties:
+        sToponym: sToponym
+        eToponym: eToponym
+        id: route_id
+        Meter: meter
+        terrain: terrain
+        safety: safety
+        sToponym_type: sToponym_type
+        eToponym_type: eToponym_type
+    period_start: 800
+    period_end: 1000
+# additional weight modifiers
+terrain:
+  desert: 2
+  normal: 1
+  mountain: 1.25
+  river: 0.75
+safety:
+  dangerous: 2
+  safe: 0.75
+  normal: 1
+sToponym_type:
+  metropoles: 4
+  capitals: 3
+  towns: 2
+  villages: 1
+  waystations: 1
+  sites: 1
+  xroads: 1
+  waters: 1
+  mont: 1
+  regions: 1
+  quarters: 1
+eToponym_type:
+  metropoles: 4
+  capitals: 3
+  towns: 2
+  villages: 1
+  waystations: 1
+  sites: 1
+  xroads: 1
+  waters: 1
+  mont: 1
+  regions: 1
+  quarters: 1

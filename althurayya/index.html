@@ -29,9 +29,12 @@
     <!--https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">-->
     <link href='https://fonts.googleapis.com/earlyaccess/amiri.css' rel='stylesheet' type='text/css'>
 
+    <link rel="config" href="./EasterIsland/EasterIsland_config.yml">
+
     <!--GeoJson Data File-->
+    <!--
     <link rel="points" type="application/json" href="./master/places_plus.geojson">
-    <link rel="routes" type="application/json" href="./master/routes_plus.geojson">
+    <link rel="routes" type="application/json" href="./master/routes_plus.geojson">-->
     <!-- <link rel="points" type="application/json" href="./master/places_new_structure.geojson">
     <link rel="routes" type="application/json" href="./master/routes_wgt.json"> -->
     <link rel="regions" type="application/json" href="./master/regions.json">
@@ -70,9 +73,11 @@
         <li id="regions"><a href="#regionPane" role="tab" title="Regions"><i class="fa fa-globe"></i></a></li>
         <li id="search"><a href="#searchPane" role="tab" title="Search"><i class="fa fa-search"></i></a></li>
         <li id="routeSection"><a href="#routeSectionPane" role="tab" title="Routes"><i class="fa fa-object-ungroup"></i></a></li>
+	<li id="mapSlideButton"><a href="#mapsliders" role="tab" title="Weighting Factors"><i class="fa fa-balance-scale"></i></a></li> 
         <li id="pathFinding"><a href="#pathFindingPane" role="tab" title="Path Finding"><i class="fa fa-arrow-right"></i></a></li>
         <li id="network"><a href="#networkPane" role="tab" title="Network"><i class="fa fa-bullseye "></i></a></li>
         <li id="assignCoord"><a href="#assignCoordPane" role="tab" title="Assign Coordinate"><i class="fa fa-map-pin"></i></a></li>
+        <li id="uploadData"><a href="#uploadDataPane" role="tab" title="Upload data"><i class="fa fa-upload"></i></a></li>
 
     </ul>
     <div class="sidebar-content">
@@ -98,6 +103,9 @@
             <p><font class="fa fa-globe"></font> The maps of provinces. The extent of each province is modeled by coloring places and route sections associated with the same province in Cornu’s data. Route sections that begin in one region and end in another are colored in grey, thus denoting space between provinces. This way of representing provinces allows showing the extent of a province in question without imposing “borderlines”.</p>
 
             <p><font class="fa fa-object-ungroup"></font> Technical information on route sections. This tab is mostly for development purposes, although one can find there useful information, including ID, start and end points, and the length in meters (Complete list includes: sToponym, eToponym, id, Meter, eTitle, eTitleAr, eUri, sTitle, sTitleAr, sUri).</p>
+
+	   <p><font class="fa fa-balance-scales"></font> Weight modifications - allows you to select or unselect different fields to take into account when using the pathfinding calculator.
+            </p>
 
             <p><font class="fa fa-arrow-right"></font> Pathfinding allows one to model paths between two and more locations (naval travel is not implemented). The modeled path will be presented as the shortest and the optimal options. One can introduce additional route points between the <i>source</i> and the <i>destination</i> to model a more complex itinerary. <b>NB:</b> The <i>shortest</i> option generates the shortest path in the network, using Dijkstra algorithm; the <i>optimal</i> path tries to find the shortest path with the highest number of stations and settlements along the way (under the assumption that such paths are safer).
             </p>
@@ -173,6 +181,60 @@
                 <br>
             </h3>
         </div>
+        <div class="sidebar-pane" id="mapsliders">
+            <h1 id="locTitle">Weighting Factors</h1>
+
+			<form id=mapcheckboxes>
+			<script>
+
+
+			function onsubmitchecks(){
+			var elements = document.getElementById("mapcheckboxes").elements;
+
+			for (var weightboxes = 0, element; element = elements[weightboxes++];) {
+    		if (element.type == "checkbox" && element.checked == true){
+			checktruth = 1
+			}
+			else if  (element.type == "checkbox" && element.checked == false){
+			checktruth = 0
+			}
+
+			for (mop in weweights){
+			if (weweights[mop][0] == element.value && checktruth == 1){
+			weweights[mop][2] = 1;
+        	console.log(element.value + "switched on");
+			}
+			else if (weweights[mop][0] == element.value && checktruth == 0){
+			weweights[mop][2] = 0;
+        	console.log(element.value + "switched off");
+			}
+			}
+
+			}
+
+            init_graph(route_features);
+            graph_dijks = createMatrix(route_features);
+			}
+
+
+			for (n in weweights){
+			document.write(weweights[n][0]);
+			var checkeder = ""
+			if (weweights[n][2] == 1){
+			checkeder = "checked"
+			}
+			document.write("<input type=checkbox value=" + weweights[n][0] + " " + checkeder + " />");
+			document.write("<br/>");
+
+			}
+			document.write("<input type=button value='Change Graph' onclick=onsubmitchecks(); />");
+
+			</script>
+			</form>
+
+
+        </div>
+        <li id="mapSlideButton"><a href="#mapsliders" role="tab" title="Weighting Factors"><i class="fa fa-balance-scale"></i></a></li>
         <div class="sidebar-pane" id="pathFindingPane">
             <h1>Pathfinding</h1>
             <div id="pathInputs" style="display: inline-block;">
@@ -293,6 +355,15 @@
             <input type="button" id="saveToFile_btn" onclick="saveNewUrisToFile()"
                    style="display: none" value="Save URIs to file!"/>
         </div>
+        <div class="sidebar-pane" id="uploadDataPane">
+            <h1>Upload additional data:</h1>
+            <h4>Places:</h4>
+            <input type="file" id="placesfile" name="placesfile" accept=".json,.geojson"/>
+            <h4>Routes:</h4>
+            <input type="file" id="routesfile" name="routesfile" accept=".json,.geojson"/>
+            <input type="button" id="uploaddata_btn" onclick="uploadData()"
+                   value="Upload new places and routes"/>
+        </div>
     </div>
 </div>
 <div id="map" class="sidebar-map"></div>
@@ -306,6 +377,7 @@
 <script src="addNetwork.js"></script>
 <script src="HelpersForSelectionsUI.js"></script>
 <script src="coordAssign.js"></script>
+<script src="dataupload.js"></script>
 <script type="text/javascript" src="helper.js"></script>
 <script src="index.js"></script>
 
