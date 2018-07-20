@@ -75,7 +75,36 @@ $(function() {
     $('#routeSection').tooltip();
 });
 
-loadYAML();
+var dataobjects = [];
+var weweights = [];
+var typetranslator = [];
+ymlcontents = loadYAML();
+console.log(ymlcontents);
+Object.keys(ymlcontents).forEach(function(key, index){
+    if (key == "data"){
+        dataobjects = ymlcontents.data;
+    }
+    else{
+        weweights.push([key, "Typ", 1, index]);
+        const types = ymlcontents[key];
+        var tmpArr = [];
+        Object.keys(types).forEach(function(type){
+            tmpArr.push([type, types[type]]);
+        });
+        typetranslator.push(tmpArr);
+    }
+});
+console.log(weweights);
+console.log(typetranslator);
+
+Object.keys(dataobjects).forEach(function(key){
+    const tmpObj = dataobjects[key];
+    const placesfile = tmpObj.settlements;
+    const routesfile = tmpObj.routes;
+    //console.log(placesfile);
+    //console.log(routesfile);
+});
+
 
 $.getJSON($('link[rel="regions"]').attr("href"), function( data ) {
     regions = data;

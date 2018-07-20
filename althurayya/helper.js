@@ -1,7 +1,6 @@
 // Minimal example
 function loadYAML(){
-    nativeObject = YAML.load('master/config.yml');
-    //console.log(nativeObject);
+    return YAML.load('master/config.yml');
 }
 
 // Claculate distance. For results in meter, 'K' hsould be choosen as the unit
