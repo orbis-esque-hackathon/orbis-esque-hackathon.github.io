@@ -1,6 +1,6 @@
 // Minimal example
-function loadYAML(){
-    return YAML.load('master/config.yml');
+function loadYAML(file){
+    return YAML.load(file);
 }
 
 // Claculate distance. For results in meter, 'K' hsould be choosen as the unit
