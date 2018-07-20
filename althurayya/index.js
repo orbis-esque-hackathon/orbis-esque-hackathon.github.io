@@ -75,6 +75,8 @@ $(function() {
     $('#routeSection').tooltip();
 });
 
+loadYAML();
+
 $.getJSON($('link[rel="regions"]').attr("href"), function( data ) {
     regions = data;
     $.getJSON($('link[rel="points"]').attr("href"), function (data) {
@@ -445,4 +447,3 @@ function findNetwork() {
             customLineStyle(index_routes_layers[r], "red", 3, 1);
     });
 }
-

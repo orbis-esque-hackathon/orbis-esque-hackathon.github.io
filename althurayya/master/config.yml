@@ -1,0 +1,46 @@
+# datafiles to be loaded as objects
+data:
+  obj1:
+    settlements: settlements1.csv
+    routes: routes1.csv
+    period_start: 700
+    period_end: 1000
+  obj2:
+    settlements: settlements2.csv
+    routes: routes2.csv
+    period_start: 1000
+    period_end: 1300
+# categories
+terrain:
+  desert: 2
+  normal: 1
+  mountain: 1.25
+  river: 0.75
+safety:
+  dangerous: 2
+  safe: 0.75
+  normal: 1
+top_types1:
+  metropoles: 4
+  capitals: 3
+  towns: 2
+  villages: 1
+  waystations: 1
+  sites: 1
+  xroads: 1
+  waters: 1
+  mont: 1
+  regions: 1
+  quarters: 1
+top_types1:
+  metropoles: 4
+  capitals: 3
+  towns: 2
+  villages: 1
+  waystations: 1
+  sites: 1
+  xroads: 1
+  waters: 1
+  mont: 1
+  regions: 1
+  quarters: 1
