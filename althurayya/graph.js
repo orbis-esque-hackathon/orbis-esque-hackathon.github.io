@@ -40,9 +40,18 @@ function init_graph(routes) {
 		var arrayweights = [];
 		monoweigh = 1;
 		
+		
+		for (var thin in weweights){
+		console.log(weweights[thin][0]);
 		for(var jqi in weightsystem){
-    	arrayweights.push([jqi, weightsystem [jqi]]);
+		console.log(jqi);
+		if (jqi == weweights[thin][0]){ 
+    	arrayweights.push([jqi, weightsystem[jqi]]);
 		}
+		}
+		}
+		
+		console.log(arrayweights);
 		
 		for(var j in arrayweights){
 		
