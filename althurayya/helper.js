@@ -1,3 +1,7 @@
+// Minimal example
+function loadYAML(file){
+    return YAML.load(file);
+}
 
 // Claculate distance. For results in meter, 'K' hsould be choosen as the unit
 function distance(lat1, lon1, lat2, lon2, unit) {

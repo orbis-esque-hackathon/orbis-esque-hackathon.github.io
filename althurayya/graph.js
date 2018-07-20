@@ -26,7 +26,74 @@ function init_graph(routes) {
     edge._sid = s;
 
     edge._id = routes[i].properties.id;
-    edge.weight = routes[i].properties.Meter;
+
+    
+ 
+	//Weight calculator
+        var weightsystem = routes[i].properties;
+		var arrayweights = [];
+		monoweigh = 1;
+		
+		
+		for (var thin in weweights){
+		//console.log(weweights[thin][0]);
+		for(var jqi in weightsystem){
+		//console.log(jqi);
+		if (jqi == weweights[thin][0]){ 
+    	arrayweights.push([jqi, weightsystem[jqi]]);
+		}
+		}
+		}
+		
+		//console.log(arrayweights);
+		
+		for(var j in arrayweights){
+		
+		var weight_type = 1
+		for(var klm in weweights){ 
+		if (arrayweights[j][0] == weweights[klm][0]){
+		weight_type = weweights[klm];
+		}
+		}
+		if (weight_type == 1){
+		console.log("ERROR!")
+		}
+		
+		if (weight_type[2] == 1){
+		//console.log(weweights[j][0]);
+		if (weight_type[1] == "Num"){
+		monoweigh = monoweigh * arrayweights[j][1];
+		}
+		
+		else if (weight_type[1] == "InvNum"){
+		//console.log("Hi there");
+		
+		calc = arrayweights[j][1];
+		if (calc > 0){
+		calc = 1/calc;
+		}
+		else{
+		calc = 1
+		}
+		//console.log(calc)
+		monoweigh = monoweigh * calc;
+		
+		}
+		
+		else if (weight_type[1] == "Typ"){
+		type_tr = typetranslator[weight_type[3]];
+		
+		for (thing in type_tr){
+		if (type_tr[thing][0] == arrayweights[j][1]){
+		monoweigh = monoweigh * type_tr[thing][1];
+		}
+		}
+		}
+		}
+		}
+	
+    edge.weight = monoweigh;
+    
   }
   resetNodes(graph);
 

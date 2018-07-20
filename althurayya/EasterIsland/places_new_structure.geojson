@@ -1,0 +1,428 @@
+﻿{
+  "type": "FeatureCollection",
+  "features": [
+
+    {
+      "archive": {
+        "maximromanov": {}
+      },
+      "geometry": {
+        "coordinates": [
+          -109.4267463684082,
+          -27.155393072505557
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "althurayyaData": {
+          "URI": "001_HANJA_ROA",
+          "coord_certainty": "certain",
+          "language": [
+            "ara",
+            "eng"
+          ],
+          "names": {
+            "ara": {
+              "common": "القاهرة",
+              "common_other": "القاهرة",
+              "search": "",
+              "translit": "",
+              "translit_other": ""
+            },
+            "eng": {
+              "common": "Hanja Roa",
+              "common_other": "Cairo",
+              "search": "Hanja Roa",
+              "translit": "Hanja Roa",
+              "translit_other": ""
+            }
+          },
+          "region_URI": "Rum_RE",
+          "source": "maximromanov",
+          "top_type": "towns"
+        },
+        "references": {
+          "primary": {},
+          "secondary": {}
+        }
+      },
+      "type": "Feature"
+    },
+
+    {
+      "archive": {
+        "maximromanov": {}
+      },
+      "geometry": {
+        "coordinates": [
+            -109.32186126708984,
+            -27.075328929470256
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "althurayyaData": {
+          "URI": "002_AHU_NAUNAU",
+          "coord_certainty": "certain",
+          "language": [
+            "ara",
+            "eng"
+          ],
+          "names": {
+            "ara": {
+              "common": "القاهرة",
+              "common_other": "القاهرة",
+              "search": "",
+              "translit": "",
+              "translit_other": ""
+            },
+            "eng": {
+              "common": "Ahu Nau Nau",
+              "common_other": "Cairo",
+              "search": "Ahu Nau Nau",
+              "translit": "Ahu Nau Nau",
+              "translit_other": ""
+            }
+          },
+          "region_URI": "Rum_RE",
+          "source": "maximromanov",
+          "top_type": "towns"
+        },
+        "references": {
+          "primary": {},
+          "secondary": {}
+        }
+      },
+      "type": "Feature"
+    },
+
+    {
+      "archive": {
+        "maximromanov": {}
+      },
+      "geometry": {
+        "coordinates": [
+            -109.44331169128417,
+            -27.187540104904876
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "althurayyaData": {
+          "URI": "003_ORONGO",
+          "coord_certainty": "certain",
+          "language": [
+            "ara",
+            "eng"
+          ],
+          "names": {
+            "ara": {
+              "common": "القاهرة",
+              "common_other": "القاهرة",
+              "search": "",
+              "translit": "",
+              "translit_other": ""
+            },
+            "eng": {
+              "common": "Orongo",
+              "common_other": "Cairo",
+              "search": "Orongo",
+              "translit": "Orongo",
+              "translit_other": ""
+            }
+          },
+          "region_URI": "Rum_RE",
+          "source": "maximromanov",
+          "top_type": "metropoles"
+        },
+        "references": {
+          "primary": {},
+          "secondary": {}
+        }
+      },
+      "type": "Feature"
+    },
+
+    {
+      "archive": {
+        "maximromanov": {}
+      },
+      "geometry": {
+        "coordinates": [
+          -109.29038286209105,
+          -27.12277843431297
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "althurayyaData": {
+          "URI": "004_RANORARAKU",
+          "coord_certainty": "certain",
+          "language": [
+            "ara",
+            "eng"
+          ],
+          "names": {
+            "ara": {
+              "common": "القاهرة",
+              "common_other": "القاهرة",
+              "search": "",
+              "translit": "",
+              "translit_other": ""
+            },
+            "eng": {
+              "common": "Rano Raraku",
+              "common_other": "Cairo",
+              "search": "Rano Raraku",
+              "translit": "Rano Raraku",
+              "translit_other": ""
+            }
+          },
+          "region_URI": "Rum_RE",
+          "source": "maximromanov",
+          "top_type": "towns"
+        },
+        "references": {
+          "primary": {},
+          "secondary": {}
+        }
+      },
+      "type": "Feature"
+    },
+
+    {
+      "archive": {
+        "maximromanov": {}
+      },
+      "geometry": {
+        "coordinates": [
+          -109.27722930908202,
+          -27.126025048359928
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "althurayyaData": {
+          "URI": "005_TONGARIKI",
+          "coord_certainty": "certain",
+          "language": [
+            "ara",
+            "eng"
+          ],
+          "names": {
+            "ara": {
+              "common": "القاهرة",
+              "common_other": "القاهرة",
+              "search": "",
+              "translit": "",
+              "translit_other": ""
+            },
+            "eng": {
+              "common": "Ahu Tongariki",
+              "common_other": "Cairo",
+              "search": "Ahu Tongariki",
+              "translit": "Ahu Tongariki",
+              "translit_other": ""
+            }
+          },
+          "region_URI": "Rum_RE",
+          "source": "maximromanov",
+          "top_type": "towns"
+        },
+        "references": {
+          "primary": {},
+          "secondary": {}
+        }
+      },
+      "type": "Feature"
+    },
+
+    {
+      "archive": {
+        "maximromanov": {}
+      },
+      "geometry": {
+        "coordinates": [
+            -109.33533668518066,
+            -27.146381079586504
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "althurayyaData": {
+          "URI": "006_AHU_AKAHANGA",
+          "coord_certainty": "certain",
+          "language": [
+            "ara",
+            "eng"
+          ],
+          "names": {
+            "ara": {
+              "common": "القاهرة",
+              "common_other": "القاهرة",
+              "search": "",
+              "translit": "",
+              "translit_other": ""
+            },
+            "eng": {
+              "common": "Ahu Akahanga",
+              "common_other": "Cairo",
+              "search": "Ahu Akahanga",
+              "translit": "Ahu Akahanga",
+              "translit_other": ""
+            }
+          },
+          "region_URI": "Rum_RE",
+          "source": "maximromanov",
+          "top_type": "towns"
+        },
+        "references": {
+          "primary": {},
+          "secondary": {}
+        }
+      },
+      "type": "Feature"
+    },
+
+    {
+      "archive": {
+        "maximromanov": {}
+      },
+      "geometry": {
+        "coordinates": [
+            -109.39945220947266,
+            -27.15325469929209
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "althurayyaData": {
+          "URI": "007_AHU_URENGA",
+          "coord_certainty": "certain",
+          "language": [
+            "ara",
+            "eng"
+          ],
+          "names": {
+            "ara": {
+              "common": "القاهرة",
+              "common_other": "القاهرة",
+              "search": "",
+              "translit": "",
+              "translit_other": ""
+            },
+            "eng": {
+              "common": "Ahu Huri A Urenga",
+              "common_other": "Cairo",
+              "search": "Ahu Huri A Urenga",
+              "translit": "Ahu Huri A Urenga",
+              "translit_other": ""
+            }
+          },
+          "region_URI": "Rum_RE",
+          "source": "maximromanov",
+          "top_type": "towns"
+        },
+        "references": {
+          "primary": {},
+          "secondary": {}
+        }
+      },
+      "type": "Feature"
+    },
+
+    {
+      "archive": {
+        "maximromanov": {}
+      },
+      "geometry": {
+        "coordinates": [
+          -109.40563201904297,
+          -27.173605770446454
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "althurayyaData": {
+          "URI": "008_AHU_VINAPU",
+          "coord_certainty": "certain",
+          "language": [
+            "ara",
+            "eng"
+          ],
+          "names": {
+            "ara": {
+              "common": "القاهرة",
+              "common_other": "القاهرة",
+              "search": "",
+              "translit": "",
+              "translit_other": ""
+            },
+            "eng": {
+              "common": "Ahu Vinapu",
+              "common_other": "Cairo",
+              "search": "Ahu Vinapu",
+              "translit": "Ahu Vinapu",
+              "translit_other": ""
+            }
+          },
+          "region_URI": "Rum_RE",
+          "source": "maximromanov",
+          "top_type": "towns"
+        },
+        "references": {
+          "primary": {},
+          "secondary": {}
+        }
+      },
+      "type": "Feature"
+    },
+
+    {
+      "archive": {
+        "maximromanov": {}
+      },
+      "geometry": {
+        "coordinates": [
+          -109.42713260650635,
+          -27.139697988373566
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "althurayyaData": {
+          "URI": "009_AHU_TAHAI",
+          "coord_certainty": "certain",
+          "language": [
+            "ara",
+            "eng"
+          ],
+          "names": {
+            "ara": {
+              "common": "القاهرة",
+              "common_other": "القاهرة",
+              "search": "",
+              "translit": "",
+              "translit_other": ""
+            },
+            "eng": {
+              "common": "Ahu Tahai",
+              "common_other": "Cairo",
+              "search": "Ahu Tahai",
+              "translit": "Ahu Tahai",
+              "translit_other": ""
+            }
+          },
+          "region_URI": "Rum_RE",
+          "source": "maximromanov",
+          "top_type": "towns"
+        },
+        "references": {
+          "primary": {},
+          "secondary": {}
+        }
+      },
+      "type": "Feature"
+    }
+  ]
+}
