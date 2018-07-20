@@ -12,8 +12,9 @@ def loadYaml(yamlFile):
     return(obj)
 
 settings = loadYaml("settings.yml")
+#print(settings)
 
-def generate_geojson(sValues, input_file, output_file):
+def generate_geojson_routes(values, input_file, output_file):
     features = []
     with open(input_file, "r", encoding="utf8") as f:
         routes = csv.DictReader(f, delimiter="\t")
@@ -23,45 +24,32 @@ def generate_geojson(sValues, input_file, output_file):
             for c in l:
                 tmp.append((float(c[0]), float(c[1])))
             # generate properties dictionary
-            properties = {}
-            for s in sValues:
-                pass
+            pDic = {}
+            for s in values:
+                if s == "Meter":
+                    pDic[s] = int(r[values[s]])
+                else:
+                    pDic[s] = r[values[s]]
+            # creating a feature
             feature = geojson.Feature(geometry=geojson.LineString(tmp),
-                                      properties={"id": r[sValues["id"]], "sToponym": r[sValues["sToponym"]],
-                                                  'sToponym_type': r['sToponym_type'], "eToponym": r['eToponym'],
-                                                  'eToponym_type': r['eToponym_type'], "terrain": r['terrain'],
-                                                  "safety": r['safety'], 'meter': r['meter']})
-                                    
-##                                      properties={"route_id": r["route_id"], "sToponym": r['sToponym'],
-##                                                  'sToponym_type': r['sToponym_type'], "eToponym": r['eToponym'],
-##                                                  'eToponym_type': r['eToponym_type'], "terrain": r['terrain'],
-##                                                  "safety": r['safety'], 'meter': r['meter']})
+                                      properties=pDic)
             features.append(feature)
     f_collection = geojson.FeatureCollection(features)
     with open(output_file, 'w') as out_geo:
         writer = geojson.dump(f_collection, out_geo, indent=4)
 
-print(settings)
+#print(settings)
 
 def generateGeoJsonData():
 
     for d in settings["data"]:
-        # settlement values
-        sFile = settings["data"][d]["routesFile"]
-        sValues = settings["data"][d]["routesProperties"]
+        # routes values
+        rFile = settings["data"][d]["routesFile"]
+        rValues = settings["data"][d]["routesProperties"]
+        generate_geojson_routes(rValues, rFile+".csv", rFile+".geojson")
 
-        print(sValues)
+        # settlements values
 
-        for s in sValues:
-            print(s)
-
-        
-
-
-        #generate_geojson(routeFile+".csv", routeFile+".geojson")
-    
-    
-    #generate_geojson(inputFile, outputFile)
 
 
 generateGeoJsonData()

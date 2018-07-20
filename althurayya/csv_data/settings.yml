@@ -1,18 +1,23 @@
-# datafiles to be loaded as objects
+# datafiles to be loaded as objects: mapping
 data:
   obj1:
+    # settlement data
     settlementFile: settlements1
     # mapping csv > geojson
     settlementProperties:
+      # required fields
       URI: uri
+      # additional fields
+      data1: blablabla
+    # routes data
     routesFile: routes1
-    # mapping csv > geojson
     routesProperties:
       # required fields
       sToponym: sToponym
       eToponym: eToponym
       id: route_id
       Meter: meter
+      # additional fields
       terrain: terrain
       safety: safety
       sToponym_type: sToponym_type
@@ -20,36 +25,37 @@ data:
     period_start: 800
     period_end: 1000
 # additional weight modifiers
-terrain:
-  desert: 2
-  normal: 1
-  mountain: 1.25
-  river: 0.75
-safety:
-  dangerous: 2
-  safe: 0.75
-  normal: 1
-sToponym_type:
-  metropoles: 4
-  capitals: 3
-  towns: 2
-  villages: 1
-  waystations: 1
-  sites: 1
-  xroads: 1
-  waters: 1
-  mont: 1
-  regions: 1
-  quarters: 1
-eToponym_type:
-  metropoles: 4
-  capitals: 3
-  towns: 2
-  villages: 1
-  waystations: 1
-  sites: 1
-  xroads: 1
-  waters: 1
-  mont: 1
-  regions: 1
-  quarters: 1
+modifiers:
+  terrain:
+    desert: 2
+    normal: 1
+    mountain: 1.25
+    river: 0.75
+  safety:
+    dangerous: 2
+    safe: 0.75
+    normal: 1
+  sToponym_type:
+    metropoles: 4
+    capitals: 3
+    towns: 2
+    villages: 1
+    waystations: 1
+    sites: 1
+    xroads: 1
+    waters: 1
+    mont: 1
+    regions: 1
+    quarters: 1
+  eToponym_type:
+    metropoles: 4
+    capitals: 3
+    towns: 2
+    villages: 1
+    waystations: 1
+    sites: 1
+    xroads: 1
+    waters: 1
+    mont: 1
+    regions: 1
+    quarters: 1
