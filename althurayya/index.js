@@ -37,8 +37,11 @@ var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
     '<a href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_US" target="_blank">CC-BY-NC 3.0</a>' }),
     waterColor = L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg')//new L.StamenTileLayer("watercolor");
 
-var min_zoom = 5, // 5
-    max_zoom = 14;
+    // Set starting zoom
+    var min_zoom = 12, // 5
+        max_zoom = 14;
+//var min_zoom = 5, // 5
+//    max_zoom = 14;
 var prevZoom = min_zoom;
 
 var regs = {};
@@ -59,7 +62,10 @@ var auto_list = [];
 var latlngs = [];
 var graph_dijks;
 var prevPath = [];
-var init_lat = 30, init_lon = 42;
+//var init_lat = 30, init_lon = 42;
+
+// Set starting lat & long
+var init_lat = -27.126, init_lon = -109.277;
 var clicked_lat, clicked_lng;
 var regions;
 
@@ -78,8 +84,8 @@ $(function() {
 var dataobjects = [];
 var weweights = [];
 var typetranslator = [];
-ymlcontents = loadYAML();
-console.log(ymlcontents);
+ymlcontents = loadYAML($('link[rel="config"]').attr("href"));
+
 Object.keys(ymlcontents).forEach(function(key, index){
     if (key == "data"){
         dataobjects = ymlcontents.data;
@@ -94,18 +100,124 @@ Object.keys(ymlcontents).forEach(function(key, index){
         typetranslator.push(tmpArr);
     }
 });
-console.log(weweights);
-console.log(typetranslator);
 
 Object.keys(dataobjects).forEach(function(key){
     const tmpObj = dataobjects[key];
     const placesfile = tmpObj.settlements;
     const routesfile = tmpObj.routes;
-    //console.log(placesfile);
-    //console.log(routesfile);
+
+    $.getJSON($('link[rel="regions"]').attr("href"), function( data ) {
+        regions = data;
+        $.getJSON(placesfile, function (data) {
+            geojson = L.geoJson(data, {
+                pointToLayer: function (feature, latlng) {
+                    if (Object.keys(type_size).indexOf(
+                            //feature.archive.cornuData.top_type_hom) != -1) {
+                            feature.properties.althurayyaData.top_type) != -1) {
+                        //return L.Marker(latlng);
+                    }
+
+                    if (regs[feature.properties.althurayyaData.region_URI] == undefined)
+                        regs[feature.properties.althurayyaData.region_URI] = [];
+                    regs[feature.properties.althurayyaData.region_URI]
+                        .push(feature.properties.althurayyaData.URI);
+
+                    var marker = create_marker(feature, latlng);
+                    latlngs.push([latlng['lat'], latlng['lng']])
+                    // list of toponyms for autocomplete action of the search input
+                    auto_list.push(
+                        [feature.properties.althurayyaData.names.eng.search,
+                            feature.properties.althurayyaData.names.ara.common,
+                            feature.properties.althurayyaData.URI
+                        ].join(", "));
+
+                    // click on a marker
+                    marker.on('click', OnMarkerClick(feature));
+
+                    function ResizeMarker(e) {
+                        var currentZoom = map.getZoom();
+                        marker.setradius(currentZoom * (Math.sqrt(feature.properties.althurayyaData.names.eng.translit.length) / 3));
+                    }
+
+                    if (marker != null) {
+                        return marker;
+                    }
+                }
+            });
+            // Add the geojson layer of places to map
+            geojson.addTo(map);
+
+            // sort the region names alphabetically before putting them on the tab
+            Object.keys(regs).sort(function (a, b) {
+                return a.toLowerCase().localeCompare(b.toLowerCase());
+            })
+            // and then, create html list of regions in region tab (from sorted list of regions)
+                .forEach(function (key) {
+                    if (key !== "NoRegion") {
+                        var func = "click_region(\"" + key + "\");";
+                        $("#regionDiv").append("<li id=\'" + key+  "\' class='region_ul' onclick=\'"+ func + "\';>"
+                            + regions[key]['display'] + "</li>");
+                    }
+                });
+
+            var cities = new L.LayerGroup();
+            Object.keys(markers).forEach(function(key) {
+                markers[key].addTo(cities);
+                // metropoles has the label on load and brought to front
+                if(marker_properties[key].type == "metropoles") {
+                    markers[key].setLabelNoHide(true);
+                    markers[key].bringToFront();
+                }
+            });
+
+            // Different layers of map
+            var baseLayers = {
+                "AMWC" : prevTile,
+                "Grayscale": grayscale,
+                "Streets": streets,
+                "National Geographic": tiles,
+                "Google Satellite":googleSat,
+                "Google Terrain":googleTerrain,
+                "Water Color": waterColor
+            };
+            var overlays = {
+                "Places": cities
+            };
+            L.control.layers(baseLayers, overlays).addTo(map);
+            var sidebar = L.control.sidebar('sidebar').addTo(map);
+        }).done(function () {
+            index_zoom(markers,type_size);
+            $.getJSON(routesfile, function (data) {
+                var routes = L.geoJson(data, {
+                    onEachFeature: handle_routes
+                });
+                init_graph(route_features);
+                graph_dijks = create_dijk_graph(route_features);
+                var rl = routeLayer.addLayer(routes);
+                rl.addTo(map);
+                rl.bringToBack();
+                Object.keys(route_points).forEach(function(rp) {
+                    for (var i = 0; i < route_points[rp].length - 1; i++) {
+                        //var found = false;
+                        for (var j = 1; j < route_points[rp].length; j++) {
+                            if (route_points[rp][i]["end"] == route_points[rp][j]["end"]) {
+                                // new structure of places.geojson file
+                                //customLineStyle(route_points[rp][i]["route"], colorLookup[route_points[rp][i]["end"]], 2, 1);
+                                //customLineStyle(route_points[rp][j]["route"], colorLookup[route_points[rp][i]["end"]], 2, 1);
+                                customLineStyle(route_points[rp][i]["route"], regions[route_points[rp][i]["end"]]['color'], 2, 1);
+                                customLineStyle(route_points[rp][j]["route"], regions[route_points[rp][i]["end"]]['color'], 2, 1);
+                            }
+                        }
+                    }
+                });
+            }).error(function(data) {
+                console.log("Error!");
+            });
+        });
+    });
 });
 
-
+/*
 $.getJSON($('link[rel="regions"]').attr("href"), function( data ) {
     regions = data;
     $.getJSON($('link[rel="points"]').attr("href"), function (data) {
@@ -131,9 +243,7 @@ $.getJSON($('link[rel="regions"]').attr("href"), function( data ) {
                         feature.properties.althurayyaData.URI
                     ].join(", "));
 
-                /*
-                 * click on a marker
-                 */
+                // click on a marker
                 marker.on('click', OnMarkerClick(feature));
 
                 function ResizeMarker(e) {
@@ -217,6 +327,7 @@ $.getJSON($('link[rel="regions"]').attr("href"), function( data ) {
         });
     });
 });
+*/
 
 /*
  * Click on map
