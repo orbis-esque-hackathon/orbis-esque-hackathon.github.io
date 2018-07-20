@@ -83,7 +83,7 @@ $(function() {
 
 var dataobjects = [];
 var weweights = [];
-var typetranslator = [];
+var typetranslator = {};
 ymlcontents = loadYAML($('link[rel="config"]').attr("href"));
 
 Object.keys(ymlcontents).forEach(function(key, index){
@@ -91,15 +91,20 @@ Object.keys(ymlcontents).forEach(function(key, index){
         dataobjects = ymlcontents.data;
     }
     else{
-        weweights.push([key, "Typ", 1, index]);
-        const types = ymlcontents[key];
-        var tmpArr = [];
-        Object.keys(types).forEach(function(type){
-            tmpArr.push([type, types[type]]);
+        Object.keys(ymlcontents[key]).forEach(function(modkey){
+            weweights.push([modkey, "Typ", 1, index]);
+            const types = ymlcontents[key][modkey];
+            var tmpArr = [];
+            Object.keys(types).forEach(function(type){
+                tmpArr.push([type, types[type]]);
+            });
+            typetranslator[modkey] = tmpArr;
         });
-        typetranslator.push(tmpArr);
     }
 });
+
+console.log(weweights);
+console.log(typetranslator);
 
 Object.keys(dataobjects).forEach(function(key){
     const tmpObj = dataobjects[key];
