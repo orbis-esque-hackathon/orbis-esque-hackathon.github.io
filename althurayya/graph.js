@@ -26,7 +26,7 @@ function init_graph(routes) {
     edge._sid = s;
 
     edge._id = routes[i].properties.id;
-    edge.weight = routes[i].properties.Meter;
+    edge.weight = routes[i].properties.Weight; /* GK - was Meter */
   }
   resetNodes(graph);
 
