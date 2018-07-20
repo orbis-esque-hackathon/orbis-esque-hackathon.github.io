@@ -1,8 +1,8 @@
 # datafiles to be loaded as objects
 data:
   obj1:
-    settlements: "./Easterland/places_new_structure.geojson"
-    routes: "./Easterland/routes.json"
+    settlements: "./EasterIsland/places_new_structure.geojson"
+    routes: "./EasterIsland/routes.json"
     period_start: 700
     period_end: 1000
 
@@ -19,11 +19,3 @@ Moai:
   5: 1
   6: 1
   7: 1
-  
-  
-
-  
-
-
-
-
