@@ -1,0 +1,55 @@
+{
+    "summer": {
+        "passable": 1, 
+        "impassable": 0
+    }, 
+    "winter": {
+        "passable": 1, 
+        "impassable": 0
+    }, 
+    "eToponym_type": {
+        "capitals": 3, 
+        "waystations": 1, 
+        "waters": 1, 
+        "villages": 1, 
+        "sites": 1, 
+        "quarters": 1, 
+        "regions": 1, 
+        "mont": 1, 
+        "xroads": 1, 
+        "metropoles": 4, 
+        "towns": 2
+    }, 
+    "spring": {
+        "passable": 1, 
+        "impassable": 0
+    }, 
+    "terrain": {
+        "mountain": 1.25, 
+        "river": 0.75, 
+        "desert": 2, 
+        "normal": 1
+    }, 
+    "autumn": {
+        "passable": 1, 
+        "impassable": 0
+    }, 
+    "safety": {
+        "dangerous": 2, 
+        "safe": 0.75, 
+        "normal": 1
+    }, 
+    "sToponym_type": {
+        "capitals": 3, 
+        "waystations": 1, 
+        "waters": 1, 
+        "villages": 1, 
+        "sites": 1, 
+        "quarters": 1, 
+        "regions": 1, 
+        "mont": 1, 
+        "xroads": 1, 
+        "metropoles": 4, 
+        "towns": 2
+    }
+}

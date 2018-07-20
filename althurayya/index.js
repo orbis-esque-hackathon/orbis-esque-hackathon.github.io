@@ -183,7 +183,7 @@ Object.keys(dataobjects).forEach(function(key){
             var overlays = {
                 "Places": cities
             };
-            L.control.layers(baseLayers, overlays).addTo(map);
+            layerControl = L.control.layers(baseLayers, overlays).addTo(map);
             var sidebar = L.control.sidebar('sidebar').addTo(map);
         }).done(function () {
             index_zoom(markers,type_size);
