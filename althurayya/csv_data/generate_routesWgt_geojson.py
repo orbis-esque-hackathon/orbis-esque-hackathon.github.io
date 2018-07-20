@@ -17,7 +17,7 @@ def generate_geojson(input_file, output_file):
                                       properties={"id": r["route_id"], "sToponym": r['sToponym'],
                                                   'sToponym_type': r['sToponym_type'], "eToponym": r['eToponym'],
                                                   'eToponym_type': r['eToponym_type'], "terrain": r['terrain'],
-                                                  "safety": r['safety'], 'Meter': r['meter']})
+                                                  "safety": r['safety'], 'Meter': int(r['meter'])})
             features.append(feature)
     f_collection = geojson.FeatureCollection(features)
     with open(output_file, 'w') as out_geo:
