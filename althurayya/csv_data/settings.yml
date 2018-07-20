@@ -1,26 +1,22 @@
 # datafiles to be loaded as objects
 data:
   obj1:
-    settlementFile: settlements1.csv
+    settlementFile: settlements1
     # mapping csv > geojson
-    settlementCoreValues:
+    settlementProperties:
       URI: uri
-    routesFile: routes1.csv
+    routesFile: routes1
     # mapping csv > geojson
-    routeFeatures:
-      type: Feature
-      geometry:
-        type: LineString
-        coordinates: Coordinates
-      properties:
-        sToponym: sToponym
-        eToponym: eToponym
-        id: route_id
-        Meter: meter
-        terrain: terrain
-        safety: safety
-        sToponym_type: sToponym_type
-        eToponym_type: eToponym_type
+    routesProperties:
+      # required fields
+      sToponym: sToponym
+      eToponym: eToponym
+      id: route_id
+      Meter: meter
+      terrain: terrain
+      safety: safety
+      sToponym_type: sToponym_type
+      eToponym_type: eToponym_type
     period_start: 800
     period_end: 1000
 # additional weight modifiers
