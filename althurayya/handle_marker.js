@@ -5,6 +5,46 @@ var marker_properties = {};
 // Variable holding the previous clicked marker
 var prevClickedMarker;
 
+function checkObjectKeys(object, keyname) {
+    var returnvalue = null;
+    Object.keys(object).forEach(function(key) {
+        const val = object[key];
+        if (typeof val == "object"){
+            returnvalue = checkObjectKeys(val, keyname);
+        }
+        else{
+            if( key.toString().toLowerCase() == keyname.toLowerCase() ){
+                returnvalue = val;
+            }
+        }
+    });
+    return returnvalue;
+}
+
+function create_simple_marker(feature,latlng) {
+    var marker = L.circleMarker(latlng,{
+        // TODO: maybe select color at random
+        opacity: 1,
+        fillOpacity: 1,
+        weight: 1
+    });
+
+    // Here, we look for identifying fields (currently, only name and ID)
+    // to use as marker label
+    var identifier = checkObjectKeys(feature.properties, "name");
+    if (typeof identifier == 'undefined'){
+        identifier = checkObjectKeys(feature.properties, "ID");
+    }
+
+    var marker = marker.bindLabel(identifier);
+    marker.options.className = "leaflet-label";
+    marker.options.zoomAnimation = true;
+    marker.options.opacity = 0.0;
+    marker.options.direction = "auto";
+    markers[identifier] = marker;
+    return marker;
+}
+
 function create_marker(feature,latlng) {
     var marker = L.circleMarker(latlng,{
         //fillColor: setColor(feature.properties.cornuData.region_code, [13, 23]),

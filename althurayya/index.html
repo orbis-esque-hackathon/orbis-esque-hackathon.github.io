@@ -77,6 +77,7 @@
         <li id="pathFinding"><a href="#pathFindingPane" role="tab" title="Path Finding"><i class="fa fa-arrow-right"></i></a></li>
         <li id="network"><a href="#networkPane" role="tab" title="Network"><i class="fa fa-bullseye "></i></a></li>
         <li id="assignCoord"><a href="#assignCoordPane" role="tab" title="Assign Coordinate"><i class="fa fa-map-pin"></i></a></li>
+        <li id="uploadData"><a href="#uploadDataPane" role="tab" title="Upload data"><i class="fa fa-upload"></i></a></li>
 
     </ul>
     <div class="sidebar-content">
@@ -179,11 +180,11 @@
         </div>
         <div class="sidebar-pane" id="mapsliders">
             <h1 id="locTitle">Weighting Factors</h1>
-			
+
 			<form id=mapcheckboxes>
 			<script>
-			
-			
+
+
 			function onsubmitchecks(){
 			var elements = document.getElementById("mapcheckboxes").elements;
 
@@ -194,7 +195,7 @@
 			else if  (element.type == "checkbox" && element.checked == false){
 			checktruth = 0
 			}
-			
+
 			for (mop in weweights){
 			if (weweights[mop][0] == element.value && checktruth == 1){
 			weweights[mop][2] = 1;
@@ -205,14 +206,14 @@
         	console.log(element.value + "switched off");
 			}
 			}
-			
+
 			}
-			
+
             init_graph(route_features);
             graph_dijks = createMatrix(route_features);
 			}
-			
-			
+
+
 			for (n in weweights){
 			document.write(weweights[n][0]);
 			var checkeder = ""
@@ -222,14 +223,14 @@
 			document.write("<input type=checkbox value=" + weweights[n][0] + " " + checkeder + " />");
 			document.write("<br
         <li id="mapSlideButton"><a href="#mapsliders" role="tab" title="Weighting Factors"><i class="fa fa-balance-scale"></i></a></li> />");
-			
+
 			}
 			document.write("<input type=button value='Change Graph' onclick=onsubmitchecks(); />");
-			
+
 			</script>
 			</form>
-			
-			
+
+
         </div>
         <li id="mapSlideButton"><a href="#mapsliders" role="tab" title="Weighting Factors"><i class="fa fa-balance-scale"></i></a></li>
         <div class="sidebar-pane" id="pathFindingPane">
@@ -352,6 +353,15 @@
             <input type="button" id="saveToFile_btn" onclick="saveNewUrisToFile()"
                    style="display: none" value="Save URIs to file!"/>
         </div>
+        <div class="sidebar-pane" id="uploadDataPane">
+            <h1>Upload additional data:</h1>
+            <h4>Places:</h4>
+            <input type="file" id="placesfile" name="placesfile" accept=".json,.geojson"/>
+            <h4>Routes:</h4>
+            <input type="file" id="routesfile" name="routesfile" accept=".json,.geojson"/>
+            <input type="button" id="uploaddata_btn" onclick="uploadData()"
+                   value="Upload new places and routes"/>
+        </div>
     </div>
 </div>
 <div id="map" class="sidebar-map"></div>
@@ -365,6 +375,7 @@
 <script src="addNetwork.js"></script>
 <script src="HelpersForSelectionsUI.js"></script>
 <script src="coordAssign.js"></script>
+<script src="dataupload.js"></script>
 <script type="text/javascript" src="helper.js"></script>
 <script src="index.js"></script>
 
