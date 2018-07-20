@@ -1,0 +1,9 @@
+
+Starting zooms and coords in this dataset (can be changed high up in index.js)
+
+// Set starting zoom
+var min_zoom = 12, // 5
+    max_zoom = 14;
+	
+// Set starting lat & long
+var init_lat = -27.126, init_lon = -109.277;
