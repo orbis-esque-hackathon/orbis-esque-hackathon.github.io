@@ -2,7 +2,6 @@ import csv
 import geojson
 import json
 import ast
-# fruits = ast.literal_eval(fruits)
 
 def generate_geojson(input_file, output_file):
     features = []

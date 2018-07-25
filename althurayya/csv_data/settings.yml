@@ -5,10 +5,24 @@ data:
     settlementFile: settlements1
     # mapping csv > geojson
     settlementProperties:
-      # required fields
-      URI: uri
-      # additional fields
-      data1: blablabla
+      URI: settlement_id
+      region_URI: region_URI
+      top_type: top_type
+      names:
+        ara_common: names_ara_common
+        ara_search: names_ara_search
+        ara_translit: names_ara_translit
+        ara_common_other: names_ara_common_other
+        ara_translit_other: names_ara_translit_other
+        eng_common: names_eng_common
+        eng_search: names_eng_search
+        eng_common_other: names_eng_common_other
+        eng_translit_other: names_eng_translit_other
+        eng_translit: names_eng_translit
+      source: source
+      language: languages
+
+
     # routes data
     routesFile: routes1
     routesProperties:
