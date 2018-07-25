@@ -1,4 +1,10 @@
 # orbis-esque-hackathon.github.io
 
-1. Link to a clean working copy of al-Thurayya: <https://orbis-esque-hackathon.github.io/althurayya/>
-2. ...
+## Important!
+
+Please, do not make any changes to `/althurayya_clean/`!
+
+## Links
+
+1. Link to a clean working copy of al-Thurayya: <https://orbis-esque-hackathon.github.io/althurayya_clean/>
+2. Link to a working version with Easter Island: <https://orbis-esque-hackathon.github.io/althurayya_EasterIsland/> 
