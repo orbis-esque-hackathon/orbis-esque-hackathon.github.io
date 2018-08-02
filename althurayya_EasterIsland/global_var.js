@@ -87,7 +87,7 @@ var NUM_ZONES = 5;
    reading it into memory inm (say) index.js.
  */
 
-weweights = [
+weWeights = [
     ["Meter", "Num", 1, -1, 1],
     ["summer", "Typ", 1, "summer", 1],
     ["winter", "Typ", 1, "winter", 1],
@@ -99,7 +99,7 @@ weweights = [
     ["sToponym_type", "Typ", 1, "sToponym_type", 1]
     ]
 
-typetranslator =
+typeTranslator =
     { "summer":
         [ ["passable", 1],
           ["impassable", 1000]

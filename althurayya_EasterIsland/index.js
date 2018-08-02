@@ -72,6 +72,7 @@ var regions;
 var map = L.map('map',{maxZoom:max_zoom}).setView([init_lat,init_lon], min_zoom); //"[30, 40], min_zoom" //.fitBounds(geojson.getBounds(), {paddingTopLeft: [500, 0]});
 // Add default tile to the map
 prevTile.addTo(map);
+
 $(function() {
     $('#homeTab').tooltip();
     $('#locTab').tooltip();
@@ -79,35 +80,40 @@ $(function() {
     $('#regions').tooltip();
     $('#search').tooltip();
     $('#routeSection').tooltip();
+    $('#routeWeights').tooltip();
+    $('#pathFinding').tooltip();
+    $('#network').tooltip();
+    $('#assignCoord').tooltip();
+    $('#uploadData').tooltip();
 });
 
-var dataobjects = [];
-var weweights = [];
-var typetranslator = {};
-ymlcontents = loadYAML($('link[rel="config"]').attr("href"));
+var dataObjects = [];
+var weWeights = [];
+var typeTranslator = {};
+ymlContents = loadYAML($('link[rel="config"]').attr("href"));
 
-Object.keys(ymlcontents).forEach(function(key, index){
+Object.keys(ymlContents).forEach(function(key, index){
     if (key == "data"){
-        dataobjects = ymlcontents.data;
+        dataObjects = ymlContents.data;
     }
     else{
-        Object.keys(ymlcontents[key]).forEach(function(modkey){
-            weweights.push([modkey, "Typ", 1, index]);
-            const types = ymlcontents[key][modkey];
+        Object.keys(ymlContents[key]).forEach(function(modKey){
+            weWeights.push([modKey, "Typ", 1, index]);
+            const types = ymlContents[key][modKey];
             var tmpArr = [];
             Object.keys(types).forEach(function(type){
                 tmpArr.push([type, types[type]]);
             });
-            typetranslator[modkey] = tmpArr;
+            typeTranslator[modKey] = tmpArr;
         });
     }
 });
 
-console.log(weweights);
-console.log(typetranslator);
+console.log(weWeights);
+console.log(typeTranslator);
 
-Object.keys(dataobjects).forEach(function(key){
-    const tmpObj = dataobjects[key];
+Object.keys(dataObjects).forEach(function(key){
+    const tmpObj = dataObjects[key];
     const placesfile = tmpObj.settlements;
     const routesfile = tmpObj.routes;
 

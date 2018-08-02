@@ -11,10 +11,6 @@
     <script type="text/javascript" src="d3.v3.min.js" charset="utf-8"></script>
     <script src="https://rawgit.com/Leaflet/Leaflet.label/master/dist/leaflet.label.js"></script>
     <script type="text/javascript" src="data-structures-1.4.2.min.js"></script>
-    <script src="global_var.js"></script>
-    <script type="text/javascript" src="graph.js"></script>
-    <script type="text/javascript" src="dijkstra.js"></script>
-    <script type="text/javascript" src="yaml.min.js"></script>
     <link rel="stylesheet" href="https://rawgit.com/Leaflet/Leaflet.label/master/dist/leaflet.label.css"/>
     <!--Leaflet CSS-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
@@ -73,7 +69,7 @@
         <li id="regions"><a href="#regionPane" role="tab" title="Regions"><i class="fa fa-globe"></i></a></li>
         <li id="search"><a href="#searchPane" role="tab" title="Search"><i class="fa fa-search"></i></a></li>
         <li id="routeSection"><a href="#routeSectionPane" role="tab" title="Routes"><i class="fa fa-object-ungroup"></i></a></li>
-	<li id="mapSlideButton"><a href="#mapsliders" role="tab" title="Weighting Factors"><i class="fa fa-balance-scale"></i></a></li> 
+	    <li id="routeWeights"><a href="#mapSliders" role="tab" title="Weighting Factors"><i class="fa fa-balance-scale"></i></a></li>
         <li id="pathFinding"><a href="#pathFindingPane" role="tab" title="Path Finding"><i class="fa fa-arrow-right"></i></a></li>
         <li id="network"><a href="#networkPane" role="tab" title="Network"><i class="fa fa-bullseye "></i></a></li>
         <li id="assignCoord"><a href="#assignCoordPane" role="tab" title="Assign Coordinate"><i class="fa fa-map-pin"></i></a></li>
@@ -181,56 +177,14 @@
                 <br>
             </h3>
         </div>
-        <div class="sidebar-pane" id="mapsliders">
-            <h1 id="locTitle">Weighting Factors</h1>
+        <div class="sidebar-pane" id="mapSliders">
+            <h1 id="weightsTitle">Weighting Factors</h1>
 
-			<form id=mapcheckboxes>
-			<script>
+			<form id="weightCheckBoxes">
+                <script>
 
-
-			function onsubmitchecks(){
-			var elements = document.getElementById("mapcheckboxes").elements;
-
-			for (var weightboxes = 0, element; element = elements[weightboxes++];) {
-    		if (element.type == "checkbox" && element.checked == true){
-			checktruth = 1
-			}
-			else if  (element.type == "checkbox" && element.checked == false){
-			checktruth = 0
-			}
-
-			for (mop in weweights){
-			if (weweights[mop][0] == element.value && checktruth == 1){
-			weweights[mop][2] = 1;
-        	console.log(element.value + "switched on");
-			}
-			else if (weweights[mop][0] == element.value && checktruth == 0){
-			weweights[mop][2] = 0;
-        	console.log(element.value + "switched off");
-			}
-			}
-
-			}
-
-            init_graph(route_features);
-            graph_dijks = createMatrix(route_features);
-			}
-
-
-			for (n in weweights){
-			document.write(weweights[n][0]);
-			var checkeder = ""
-			if (weweights[n][2] == 1){
-			checkeder = "checked"
-			}
-			document.write("<input type=checkbox value=" + weweights[n][0] + " " + checkeder + " />");
-			document.write("<br/>");
-
-			}
-			document.write("<input type=button value='Change Graph' onclick=onsubmitchecks(); />");
-
-			</script>
-			</form>
+                </script>
+            </form>
 
 
         </div>
@@ -367,6 +321,10 @@
 </div>
 <div id="map" class="sidebar-map"></div>
 <!--Local js files of althurayya-->
+<script src="global_var.js"></script>
+<script type="text/javascript" src="graph.js"></script>
+<script type="text/javascript" src="dijkstra.js"></script>
+<script type="text/javascript" src="yaml.min.js"></script>
 <script src="myzoom.js"></script>
 <!--<script src="region.js"></script>-->
 <script src="handle_marker.js"></script>
@@ -379,6 +337,8 @@
 <script src="dataupload.js"></script>
 <script type="text/javascript" src="helper.js"></script>
 <script src="index.js"></script>
+<script src="weights.js"></script>
+
 
 <script src="../althurayya.github.io/experimental/js/ext_lib/FileSaver.min.js"></script>
 <script>

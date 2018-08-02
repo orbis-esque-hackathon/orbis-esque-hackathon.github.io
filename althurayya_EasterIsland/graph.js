@@ -7,102 +7,100 @@ We can consider removing the former one in the future!
 
  */
 function init_graph(routes) {
-  var Graph = require('data-structures').Graph;
-  graph = new Graph();
-  var e, s, edge;
+    var Graph = require('data-structures').Graph;
+    graph = new Graph();
+    var e, s, edge;
 
-  for (var i = 0; i < routes.length; i++) {
-    e = routes[i].properties.eToponym;
-    s = routes[i].properties.sToponym;
-    graph.addNode(e);
-    graph.getNode(e)._id = e;
+    for (var i = 0; i < routes.length; i++) {
+        e = routes[i].properties.eToponym;
+        s = routes[i].properties.sToponym;
+        graph.addNode(e);
+        graph.getNode(e)._id = e;
 
-    graph.addNode(s);
-    graph.getNode(s)._id = s;
+        graph.addNode(s);
+        graph.getNode(s)._id = s;
 
-    graph.addEdge(e, s);
-    edge = graph.getEdge(e, s);
-    edge._eid = e;
-    edge._sid = s;
+        graph.addEdge(e, s);
+        edge = graph.getEdge(e, s);
+        edge._eid = e;
+        edge._sid = s;
 
-    edge._id = routes[i].properties.id;
+        edge._id = routes[i].properties.id;
 
-    
- 
-	//Weight calculator
-        var weightsystem = routes[i].properties;
-		var arrayweights = [];
-		monoweigh = 1;
-		
-		
-		for (var thin in weweights){
-		//console.log(weweights[thin][0]);
-		for(var jqi in weightsystem){
-		//console.log(jqi);
-		if (jqi == weweights[thin][0]){ 
-    	arrayweights.push([jqi, weightsystem[jqi]]);
-		}
-		}
-		}
-		
-		//console.log(arrayweights);
-		
-		for(var j in arrayweights){
-		
-		var weight_type = 1
-		for(var klm in weweights){ 
-		if (arrayweights[j][0] == weweights[klm][0]){
-		weight_type = weweights[klm];
-		}
-		}
-		if (weight_type == 1){
-		console.log("ERROR!")
-		}
-		
-		if (weight_type[2] == 1){
-		//console.log(weweights[j][0]);
-		if (weight_type[1] == "Num"){
-		monoweigh = monoweigh * arrayweights[j][1];
-		}
-		
-		else if (weight_type[1] == "InvNum"){
-		//console.log("Hi there");
-		
-		calc = arrayweights[j][1];
-		if (calc > 0){
-		calc = 1/calc;
-		}
-		else{
-		calc = 1
-		}
-		//console.log(calc)
-		monoweigh = monoweigh * calc;
-		
-		}
-		
-		else if (weight_type[1] == "Typ"){
-		type_tr = typetranslator[weight_type[3]];
-		
-		for (thing in type_tr){
-		if (type_tr[thing][0] == arrayweights[j][1]){
-		monoweigh = monoweigh * type_tr[thing][1];
-		}
-		}
-		}
-		}
-		}
-	
-    edge.weight = monoweigh;
-    
-  }
-  resetNodes(graph);
+
+        //Weight calculator
+        var weightSystem = routes[i].properties;
+        var weightsArr = [];
+        monoweigh = 1;
+
+
+        for (var thin in weWeights) {
+            //console.log(weWeights[thin][0]);
+            for (var jqi in weightSystem) {
+                //console.log(jqi);
+                if (jqi == weWeights[thin][0]) {
+                    weightsArr.push([jqi, weightSystem[jqi]]);
+                }
+            }
+        }
+
+        //console.log(weightsArr);
+
+        for (var j in weightsArr) {
+
+            var weight_type = 1;
+            for (var klm in weWeights) {
+                if (weightsArr[j][0] == weWeights[klm][0]) {
+                    weight_type = weWeights[klm];
+                }
+            }
+            if (weight_type == 1) {
+                console.log("ERROR!")
+            }
+
+            if (weight_type[2] == 1) {
+                //console.log(weWeights[j][0]);
+                if (weight_type[1] == "Num") {
+                    monoweigh = monoweigh * weightsArr[j][1];
+                }
+
+                else if (weight_type[1] == "InvNum") {
+                    //console.log("Hi there");
+
+                    calc = weightsArr[j][1];
+                    if (calc > 0) {
+                        calc = 1 / calc;
+                    }
+                    else {
+                        calc = 1
+                    }
+                    //console.log(calc)
+                    monoweigh = monoweigh * calc;
+
+                }
+
+                else if (weight_type[1] == "Typ") {
+                    type_tr = typeTranslator[weight_type[3]];
+
+                    for (thing in type_tr) {
+                        if (type_tr[thing][0] == weightsArr[j][1]) {
+                            monoweigh = monoweigh * type_tr[thing][1];
+                        }
+                    }
+                }
+            }
+        }
+
+        edge.weight = monoweigh;
+
+    }
+    resetNodes(graph);
 
 }
 
 /* consider doing the routepoint thing in the definition of the graph. 
  so if you run across a routepoint, all edges connecting to it equal 
  weight of routepoint + current edge. maybe that will work? */
-
 
 
 function create_dijk_graph(postdata) {
@@ -136,31 +134,31 @@ function create_dijk_graph(postdata) {
 }
 
 function resetNodes(G) {
-  graph.forEachNode( function(node) {
-    node.visited = false; 
-  })
+    graph.forEachNode(function (node) {
+        node.visited = false;
+    })
 }
 
 /* DIJSKSTRA IMPLEMENTATION ADAPTED FROM: https://github.com/mburst/dijkstras-algorithm */
 
-function PriorityQueue () {
-  this._nodes = [];
+function PriorityQueue() {
+    this._nodes = [];
 
-  this.enqueue = function (priority, key) {
-    this._nodes.push({key: key, priority: priority });
-    this.sort();
-  }
-  this.dequeue = function () {
-    return this._nodes.shift().key;
-  }
-  this.sort = function () {
-    this._nodes.sort(function (a, b) {
-      return a.priority - b.priority;
-    });
-  }
-  this.isEmpty = function () {
-    return !this._nodes.length;
-  }
+    this.enqueue = function (priority, key) {
+        this._nodes.push({key: key, priority: priority});
+        this.sort();
+    }
+    this.dequeue = function () {
+        return this._nodes.shift().key;
+    }
+    this.sort = function () {
+        this._nodes.sort(function (a, b) {
+            return a.priority - b.priority;
+        });
+    }
+    this.isEmpty = function () {
+        return !this._nodes.length;
+    }
 }
 
 /* THOUGHT for through center. What if instead of through 'centers' I say through 'X?' 
@@ -169,110 +167,112 @@ function PriorityQueue () {
  * And if I want to do "major centers", I could have to have a list of the major centers, 
  * then ask if it's a preference or a guarantee. Find the closest major center to the existing
  * shortest path, then do pass through "X" on that center. 
- */ 
+ */
 
 //var distances = {}; // eek global 
 
 function shortestPath(s, t, searchType) {
-  var INFINITY = 1/0;
-  var nodes = new PriorityQueue(),
-          distances = {},
-          previous = {},
-          path = [],
-          smallest, neighbor, alt;
-  // init start to 0, all else to infinity  
-  graph.forEachNode( function (node) {
-    if (node._id == s._id) {
-      distances[node._id] = 0
-      nodes.enqueue(0, node._id);
-    } else {
-      distances[node._id] = INFINITY; 
-     // nodes.enqueue(INFINITY, node._id);
-    } 
-    previous[node._id] = null; 
-  });
-
-  while(!nodes.isEmpty()) {
-    smallest = nodes.dequeue();
-    /* create return path */ 
-    if (searchType != 'n') {
-      if(smallest == t._id) {
-        path;
-        while(previous[smallest]) {
-          path.push(smallest);     
-          smallest = previous[smallest];
+    var INFINITY = 1 / 0;
+    var nodes = new PriorityQueue(),
+        distances = {},
+        previous = {},
+        path = [],
+        smallest, neighbor, alt;
+    // init start to 0, all else to infinity
+    graph.forEachNode(function (node) {
+        if (node._id == s._id) {
+            distances[node._id] = 0
+            nodes.enqueue(0, node._id);
+        } else {
+            distances[node._id] = INFINITY;
+            // nodes.enqueue(INFINITY, node._id);
         }
-        break;
-      }
-    }
+        previous[node._id] = null;
+    });
 
-    var edges = graph.getAllEdgesOf(smallest);
-    for(var i = 0; i < edges.length; i++) {
-      neighbor = edges[i];
-      if (searchType == 'd' && neighbor.weight > WITHIN_A_DAY) {
-        continue;  // within a day is tagged and the neighbor's weight is greater than a Day. 
-      } else {
-          alt = distances[smallest] + neighbor.weight; 
-          if (neighbor._sid == smallest) {
-            if (alt < distances[neighbor._eid]) {
-              distances[neighbor._eid] = alt;
-              previous[neighbor._eid] = smallest;
-              nodes.enqueue(alt, neighbor._eid);
+    while (!nodes.isEmpty()) {
+        smallest = nodes.dequeue();
+        /* create return path */
+        if (searchType != 'n') {
+            if (smallest == t._id) {
+                path;
+                while (previous[smallest]) {
+                    path.push(smallest);
+                    smallest = previous[smallest];
+                }
+                break;
             }
-          } else {
-            if (alt < distances[neighbor._sid]) {
-              distances[neighbor._sid] = alt;
-              previous[neighbor._sid] = smallest;
-              nodes.enqueue(alt, neighbor._sid)
+        }
+
+        var edges = graph.getAllEdgesOf(smallest);
+        for (var i = 0; i < edges.length; i++) {
+            neighbor = edges[i];
+            if (searchType == 'd' && neighbor.weight > WITHIN_A_DAY) {
+                continue;  // within a day is tagged and the neighbor's weight is greater than a Day.
+            } else {
+                alt = distances[smallest] + neighbor.weight;
+                if (neighbor._sid == smallest) {
+                    if (alt < distances[neighbor._eid]) {
+                        distances[neighbor._eid] = alt;
+                        previous[neighbor._eid] = smallest;
+                        nodes.enqueue(alt, neighbor._eid);
+                    }
+                } else {
+                    if (alt < distances[neighbor._sid]) {
+                        distances[neighbor._sid] = alt;
+                        previous[neighbor._sid] = smallest;
+                        nodes.enqueue(alt, neighbor._sid)
+                    }
+                }
             }
-          } 
-      }
+        }
     }
-  }
-  return searchType == 'n' ? distances : path.concat(s._id).reverse(); 
-} 
+    return searchType == 'n' ? distances : path.concat(s._id).reverse();
+}
 
 
 function getNetwork(distances, multiplier) {
-  var network = d3.map(); //d3.map()? 
-  var zones = d3.map(); 
+    var network = d3.map(); //d3.map()?
+    var zones = d3.map();
 
-  //init 
-  for (var i = 1; i < NUM_ZONES; i++) {
-    zones.set(DAY * multiplier * i, 'Zone ' + i);
-  }
-  zones.set(Infinity, 'Zone ' + NUM_ZONES); 
+    //init
+    for (var i = 1; i < NUM_ZONES; i++) {
+        zones.set(DAY * multiplier * i, 'Zone ' + i);
+    }
+    zones.set(Infinity, 'Zone ' + NUM_ZONES);
 
-  //init
-  zones.values().forEach(function(z) {
-    network.set(z, new Array());
-  }); 
+    //init
+    zones.values().forEach(function (z) {
+        network.set(z, new Array());
+    });
 
-  jQuery.each(distances, function(id, meters) {
-    zone = placeDistanceInZone(meters, zones); 
-    network.get(zone).push(id); 
-  })
+    jQuery.each(distances, function (id, meters) {
+        zone = placeDistanceInZone(meters, zones);
+        network.get(zone).push(id);
+    })
 
-  return network; 
+    return network;
 }
 
 // set adds in numerical order. then we get the index 
 // of the added meter to determine which zone it belongs to. (i - 1)
 function placeDistanceInZone(meters, zones) {
-  var values = zones.keys().map(function(z) { return parseInt(z)}); // turn into ints
-  values.pop() // Infinity doesn't parse to int. 
-  if (meters == Infinity) {
-    return 'Zone ' + NUM_ZONES;
-  } else {
-    values.push(meters);
-    values.sort(function(a, b) {
-      return a - b; 
-    });
+    var values = zones.keys().map(function (z) {
+        return parseInt(z)
+    }); // turn into ints
+    values.pop() // Infinity doesn't parse to int.
+    if (meters == Infinity) {
+        return 'Zone ' + NUM_ZONES;
+    } else {
+        values.push(meters);
+        values.sort(function (a, b) {
+            return a - b;
+        });
 
-    var index = values.indexOf(meters); 
-    index = (index == values.length - 1) ? index - 1 : (index + 1);   
-    return zones.get(values[index]);
-  }
+        var index = values.indexOf(meters);
+        index = (index == values.length - 1) ? index - 1 : (index + 1);
+        return zones.get(values[index]);
+    }
 }
 
 
