@@ -25,7 +25,9 @@
     <!--https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">-->
     <link href='https://fonts.googleapis.com/earlyaccess/amiri.css' rel='stylesheet' type='text/css'>
 
-    <link rel="config" href="./EasterIsland/EasterIsland_config.yml">
+    <!--<link rel="config" href="./EasterIsland/EasterIsland_config.yml">-->
+    <link rel="config" href="./settings.yml">
+
 
     <!--GeoJson Data File-->
     <!--
@@ -178,57 +180,71 @@
             </h3>
         </div>
         <div class="sidebar-pane" id="mapSliders">
-            <h1 id="weightsTitle">Weighting Factors</h1>
+            <!--<h1 id="weightsTitle">Weighting Factors</h1>-->
 
-			<form id="weightCheckBoxes">
-                <script>
+			<!--<form id="weightCheckBoxes">-->
+                <!--<script>-->
 
-                </script>
-            </form>
+                <!--</script>-->
+            <!--</form>-->
 
 
         </div>
 	    <div class="sidebar-pane" id="pathFindingPane">
             <h1>Pathfinding</h1>
-            <div id="pathInputs" style="display: inline-block;">
-                <label>
-                    Source:
-                </label>
-                <div id="stopDiv0">
-                     <input id="stopInput0" type="text" placeholder="Source..."
-                           style="z-index: 99; " autocomplete="on"/>
+            <div>
+                <h2 id="weightsTitle">Weighting Factors</h2>
 
-                     <input type="button" id="addStop0"
-                        style="top: 3px;margin-left: 15px;padding: 5px;"
-                        title="Add intermediate stop "
-                        onclick="addStop(this.id)" value="+" />
-                </div>
-                <br>
-                <div style="display: block;">
-                    <label id="destination">
-                        Destination:
+                <form id="weightCheckBoxes">
+                    <script>
+
+                    </script>
+                </form>
+            </div>
+            <div>
+                <h2>Itinerary:</h2>
+                <div id="pathInputs" style="display: inline-block;">
+                    <label>
+                        Source:
                     </label>
-                    <input id="stopInputDestination" type="text" placeholder="Destination..."
-                           style="z-index: 99;display: block;" autocomplete="on"/>
+                    <div id="stopDiv0">
+                        <input id="stopInput0" type="text" placeholder="Source..."
+                               style="z-index: 99; " autocomplete="on"/>
+
+                        <input type="button" id="addStop0"
+                               style="top: 3px;margin-left: 15px;padding: 5px;"
+                               title="Add intermediate stop "
+                               onclick="addStop(this.id)" value="+" />
+                    </div>
+                    <br>
+                    <div style="display: block;">
+                        <label id="destination">
+                            Destination:
+                        </label>
+                        <input id="stopInputDestination" type="text" placeholder="Destination..."
+                               style="z-index: 99;display: block;" autocomplete="on"/>
                         <br>
+                    </div>
+                    </div>
+                    <div class="selections">
+                        <div id="itinerary-options"></div>
+                        <br>
+                    </div>
+                    <div style="bottom: 10px">
+                        <input type="button" style="top: 3px;"
+                               onclick="findPathConsideringIntermediates(
+                                    document.getElementById('stopInput0').value,
+                                    document.getElementById('stopInputDestination').value,
+                                    'stopInput')"
+                               value="Find Path!"/>
+                        <p>
+                            <b>NB:</b> The <i>shortest</i> option generates the shortest path in the network, using Dijkstra algorithm;
+                            the <i>optimal</i> path tries to find the shortest path with the highest number of stations and settlements along the way (under the assumption that such paths are safer).
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div class="selections">
-                <div id="itinerary-options"></div>
-                <br>
-            </div>
-            <div style="bottom: 10px">
-                <input type="button" style="top: 3px;"
-                       onclick="findPathConsideringIntermediates(
-                                document.getElementById('stopInput0').value,
-                                document.getElementById('stopInputDestination').value,
-                                'stopInput')"
-                       value="Find Path!"/>
-                <p>
-                <b>NB:</b> The <i>shortest</i> option generates the shortest path in the network, using Dijkstra algorithm;
-                the <i>optimal</i> path tries to find the shortest path with the highest number of stations and settlements along the way (under the assumption that such paths are safer).
-                </p>
-            </div>
+
+
             <!--< style="margin: 5px">-->
             <h2 id="path_dist_header" style="display: none;">Path distances:</h2>
             <div id="dist_div"></div>

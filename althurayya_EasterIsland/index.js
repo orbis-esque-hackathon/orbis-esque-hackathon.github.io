@@ -91,8 +91,9 @@ var dataObjects = [];
 var weWeights = [];
 var typeTranslator = {};
 ymlContents = loadYAML($('link[rel="config"]').attr("href"));
-
+console.log(JSON.stringify(ymlContents))
 Object.keys(ymlContents).forEach(function(key, index){
+    console.log(key)
     if (key == "data"){
         dataObjects = ymlContents.data;
     }
@@ -109,17 +110,22 @@ Object.keys(ymlContents).forEach(function(key, index){
     }
 });
 
+console.log(JSON.stringify(dataObjects))
 console.log(weWeights);
 console.log(typeTranslator);
 
 Object.keys(dataObjects).forEach(function(key){
     const tmpObj = dataObjects[key];
-    const placesfile = tmpObj.settlements;
-    const routesfile = tmpObj.routes;
+    // console.log(JSON.stringify(tmpObj.settlements))
+    const places_file = tmpObj.settlementsFile//settlements;
+    const routes_file = tmpObj.routesFile//routes;
+
+    console.log(places_file)
+    console.log(routes_file)
 
     $.getJSON($('link[rel="regions"]').attr("href"), function( data ) {
         regions = data;
-        $.getJSON(placesfile, function (data) {
+        $.getJSON(places_file, function (data) {
             geojson = L.geoJson(data, {
                 pointToLayer: function (feature, latlng) {
                     if (Object.keys(type_size).indexOf(
@@ -198,7 +204,7 @@ Object.keys(dataObjects).forEach(function(key){
             var sidebar = L.control.sidebar('sidebar').addTo(map);
         }).done(function () {
             index_zoom(markers,type_size);
-            $.getJSON(routesfile, function (data) {
+            $.getJSON(routes_file, function (data) {
                 var routes = L.geoJson(data, {
                     onEachFeature: handle_routes
                 });
@@ -502,11 +508,13 @@ function findItinerary(stops, selections) {
         s = stops[i];
         t = stops[i + 1];
         if (selections.indexOf(itin_opts[0]) != -1) {
+            alert("short")
             var short_path = findPath(s, t, itin_opts[0]);
             short_distance += displayPathControl(short_path, "red");
         }
             //shortestPaths.push(findPath(s, t, "Shortest"));
         if (selections.indexOf(itin_opts[1]) != -1){
+            alert("day")
             var day_path = findPath(s, t, itin_opts[1]);
             day_distance += displayPathControl(day_path, "green");
         }

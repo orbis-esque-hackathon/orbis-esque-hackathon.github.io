@@ -138,6 +138,7 @@ function OnMarkerClick(feature) {
             + " (" + feature.properties.althurayyaData.names.ara.common + ")");
         $("#techInfo").text("Technical Information");
         // new structure of places.geojson file
+        // TODO: languages (eng, ara, ..) should be read on the fly instead of being hard coded
         //$("#sourceTitle").text("Sources on: " + feature.properties.cornuData.toponym_arabic);
         $("#sourceTitle").text("Sources on: " + feature.properties.althurayyaData.names.ara.common);
         // Remove the previous html of english sources to put the new content

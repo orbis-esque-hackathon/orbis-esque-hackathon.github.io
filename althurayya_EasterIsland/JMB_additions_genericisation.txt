@@ -1,4 +1,5 @@
-//Note: current system requires a separate JSON object called "weights" which has an iterable list in the same order as the thing in the config file. This will be replaced by a name lookup shortly.
+//Note: current system requires a separate JSON object called "weights" which has an iterable list
+in the same order as the thing in the config file. This will be replaced by a name lookup shortly.
 
 
 	// REPLACE THE EDGE.WEIGHT CALCULATOR

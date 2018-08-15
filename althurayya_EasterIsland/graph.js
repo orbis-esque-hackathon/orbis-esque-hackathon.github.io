@@ -27,33 +27,37 @@ function init_graph(routes) {
 
         edge._id = routes[i].properties.id;
 
-
         //Weight calculator
         var weightSystem = routes[i].properties;
         var weightsArr = [];
-        monoweigh = 1;
+        mono_weigh = 1;
 
 
         for (var thin in weWeights) {
-            //console.log(weWeights[thin][0]);
+            // console.log(weWeights[thin][0]);
             for (var jqi in weightSystem) {
-                //console.log(jqi);
+                // console.log(jqi);
                 if (jqi == weWeights[thin][0]) {
-                    weightsArr.push([jqi, weightSystem[jqi]]);
+                    // if (jqi == weWeights[thin][0]) {
+                        weightsArr.push([jqi, weightSystem[jqi]]);
+                    // }
                 }
             }
         }
 
-        //console.log(weightsArr);
+        // console.log(weightsArr);
 
         for (var j in weightsArr) {
 
             var weight_type = 1;
             for (var klm in weWeights) {
+                // console.log(klm, ", ", weWeights[klm])
                 if (weightsArr[j][0] == weWeights[klm][0]) {
                     weight_type = weWeights[klm];
                 }
             }
+            // console.log(weight_type)
+
             if (weight_type == 1) {
                 console.log("ERROR!")
             }
@@ -61,7 +65,7 @@ function init_graph(routes) {
             if (weight_type[2] == 1) {
                 //console.log(weWeights[j][0]);
                 if (weight_type[1] == "Num") {
-                    monoweigh = monoweigh * weightsArr[j][1];
+                    mono_weigh = mono_weigh * weightsArr[j][1];
                 }
 
                 else if (weight_type[1] == "InvNum") {
@@ -75,26 +79,28 @@ function init_graph(routes) {
                         calc = 1
                     }
                     //console.log(calc)
-                    monoweigh = monoweigh * calc;
+                    mono_weigh = mono_weigh * calc;
 
                 }
-
                 else if (weight_type[1] == "Typ") {
-                    type_tr = typeTranslator[weight_type[3]];
+                    // console.log("typ")
+                    type_tr = typeTranslator[weight_type[0]];
+                    // console.log(type_tr)
 
                     for (thing in type_tr) {
                         if (type_tr[thing][0] == weightsArr[j][1]) {
-                            monoweigh = monoweigh * type_tr[thing][1];
+                            mono_weigh = mono_weigh * type_tr[thing][1];
                         }
                     }
                 }
             }
         }
 
-        edge.weight = monoweigh;
+        edge.weight = mono_weigh;
 
     }
     resetNodes(graph);
+    // console.log(JSON.stringify(graph))
 
 }
 
