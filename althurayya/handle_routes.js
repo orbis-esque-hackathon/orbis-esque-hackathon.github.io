@@ -183,8 +183,11 @@ function displayPathControl(pathData,color) {
     //    }
     //});
     Object.keys(markers).forEach(function (keys) {
-        if (pathData.indexOf(marker_properties[keys].cornu_URI) !== -1)
+        if (pathData.indexOf(marker_properties[keys].cornu_URI) !== -1) {
             customMarkerStyle(markers[keys], color, 0.8);
+            markers[keys].setLabelNoHide(true);
+        }
+
     });
     //}
     return path_distances;
